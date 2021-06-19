@@ -1,0 +1,32 @@
+.category {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 40px 0 0 20px;
+    width: 100%;
+    cursor: pointer;
+    padding-bottom: 40px;
+    border-bottom: 2px solid var(--border);
+}
+
+.category__item {
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category__image {
+    object-fit: cover;
+    height: 13vw;
+    width: 13vw;
+    border-radius: 50%;
+    border: 1px solid var(--borderSecondary);
+}
+
+.category__name {
+    margin-top: 20px;
+    font-size: 20px;
+    /* letter-spacing: 5px; */
+}
