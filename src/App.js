@@ -11,6 +11,7 @@ import Basket from "./Pages/Basket/Basket.jsx";
 import Navigation from "./Pages/Navigation/Navigation";
 import Search from "./Pages/Search/Search";
 import Item from "./Pages/Item/Item";
+import SearchResult from "./Pages/SearchResult/SearchResult";
 import { ROUTER_LINKS } from "./Router";
 
 class App extends React.Component {
@@ -42,6 +43,10 @@ class App extends React.Component {
                         exact
                         path={ROUTER_LINKS.item}
                         render={() => (this.props.currentUser ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                    />
+                    <Route
+                        path={ROUTER_LINKS.searchResult + ":id"}
+                        render={() => (this.props.currentUser ? <SearchResult /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                     />
                 </Switch>
             </div>

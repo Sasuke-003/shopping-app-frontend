@@ -8,4 +8,5 @@ export const ROUTER_LINKS = {
     signIn: "/signIn",
     signUp: "//signUp",
     profile: "/profile",
+    searchResult: "/searchResult/",
 };

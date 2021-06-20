@@ -22,6 +22,8 @@
 .header__menu-icon {
     display: flex;
     justify-content: center;
+    /* position: relative;
+    right: 43px;*/
 }
 
 .header__extra-icons {

@@ -2,12 +2,15 @@ import { ROUTER_LINKS } from "../../Router";
 import { withRouter } from "react-router-dom";
 import "./Header.css";
 
+import { useState } from "react";
 import MenuSharpIcon from "@material-ui/icons/MenuSharp";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import ShoppingBasketSharpIcon from "@material-ui/icons/ShoppingBasketSharp";
 import ClearSharpIcon from "@material-ui/icons/ClearSharp";
 
 function Header({ history }) {
+    const [loc, setLoc] = useState("/");
+
     return (
         <div className='header'>
             {console.log(history)}
@@ -17,7 +20,14 @@ function Header({ history }) {
             <div className='header__menu-icon'>
                 <div
                     className='header__menu-icon-container'
-                    onClick={() => history.push(history.location.pathname === ROUTER_LINKS.navigation ? ROUTER_LINKS.home : ROUTER_LINKS.navigation)}>
+                    onClick={() => {
+                        if (history.location.pathname === ROUTER_LINKS.navigation) {
+                            history.push(loc);
+                        } else {
+                            setLoc(history.location.pathname);
+                            history.push(ROUTER_LINKS.navigation);
+                        }
+                    }}>
                     {history.location.pathname === ROUTER_LINKS.navigation ? (
                         <ClearSharpIcon style={{ fontSize: 70 }} />
                     ) : (
