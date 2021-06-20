@@ -30,7 +30,7 @@ const deleteDataHandle = (data, prevData) => {
 };
 
 const INITIAL_STATE = {
-    currentUser: null,
+    currentUser: { name: "hafeez" },
     cart: {},
 };
 

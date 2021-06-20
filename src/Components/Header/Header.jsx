@@ -5,6 +5,7 @@ import "./Header.css";
 import MenuSharpIcon from "@material-ui/icons/MenuSharp";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import ShoppingBasketSharpIcon from "@material-ui/icons/ShoppingBasketSharp";
+import ClearSharpIcon from "@material-ui/icons/ClearSharp";
 
 function Header({ history }) {
     return (
@@ -14,8 +15,14 @@ function Header({ history }) {
                 MY SHOP
             </h1>
             <div className='header__menu-icon'>
-                <div className='header__menu-icon-container' onClick={() => history.push(ROUTER_LINKS.navigation)}>
-                    <MenuSharpIcon style={{ fontSize: 70 }} />
+                <div
+                    className='header__menu-icon-container'
+                    onClick={() => history.push(history.location.pathname === ROUTER_LINKS.navigation ? ROUTER_LINKS.home : ROUTER_LINKS.navigation)}>
+                    {history.location.pathname === ROUTER_LINKS.navigation ? (
+                        <ClearSharpIcon style={{ fontSize: 70 }} />
+                    ) : (
+                        <MenuSharpIcon style={{ fontSize: 70 }} />
+                    )}
                 </div>
             </div>
             <div className='header__extra-icons'>

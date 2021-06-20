@@ -7,4 +7,5 @@ export const ROUTER_LINKS = {
     orders: "/orders",
     signIn: "/signIn",
     signUp: "//signUp",
+    profile: "/profile",
 };
