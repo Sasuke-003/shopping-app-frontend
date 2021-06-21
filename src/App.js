@@ -19,36 +19,38 @@ class App extends React.Component {
         return (
             <div className='App'>
                 <Header />
-                <Switch>
-                    <Route exact path='/' render={() => <Home />} />
-                    <Route exact path={ROUTER_LINKS.signIn} render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignIn />)} />
-                    <Route exact path={ROUTER_LINKS.signUp} render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignUp />)} />
-                    <Route
-                        exact
-                        path={ROUTER_LINKS.basket}
-                        render={() => (this.props.currentUser ? <Basket /> : <Redirect to={ROUTER_LINKS.signIn} />)}
-                    />
-                    <Route exact path={ROUTER_LINKS.navigation} render={() => (this.props.currentUser ? <Navigation /> : <Navigation />)} />
-                    <Route
-                        exact
-                        path={ROUTER_LINKS.search}
-                        render={() => (this.props.currentUser ? <Search /> : <Redirect to={ROUTER_LINKS.signIn} />)}
-                    />
-                    <Route
-                        exact
-                        path={ROUTER_LINKS.orders}
-                        render={() => (this.props.currentUser ? <Orders /> : <Redirect to={ROUTER_LINKS.signIn} />)}
-                    />
-                    <Route
-                        exact
-                        path={ROUTER_LINKS.item}
-                        render={() => (this.props.currentUser ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)}
-                    />
-                    <Route
-                        path={ROUTER_LINKS.searchResult + ":id"}
-                        render={() => (this.props.currentUser ? <SearchResult /> : <Redirect to={ROUTER_LINKS.signIn} />)}
-                    />
-                </Switch>
+                <div className='App__page'>
+                    <Switch>
+                        <Route exact path='/' render={() => <Home />} />
+                        <Route exact path={ROUTER_LINKS.signIn} render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignIn />)} />
+                        <Route exact path={ROUTER_LINKS.signUp} render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignUp />)} />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.basket}
+                            render={() => (this.props.currentUser ? <Basket /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                        <Route exact path={ROUTER_LINKS.navigation} render={() => (this.props.currentUser ? <Navigation /> : <Navigation />)} />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.search}
+                            render={() => (this.props.currentUser ? <Search /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.orders}
+                            render={() => (this.props.currentUser ? <Orders /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.item + ":id"}
+                            render={() => (this.props.currentUser ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                        <Route
+                            path={ROUTER_LINKS.searchResult + ":id"}
+                            render={() => (this.props.currentUser ? <SearchResult /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                    </Switch>
+                </div>
             </div>
         );
     }

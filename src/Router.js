@@ -2,11 +2,11 @@ export const ROUTER_LINKS = {
     home: "/",
     search: "/search",
     basket: "/basket",
-    item: "/item",
+    item: "/item/",
     navigation: "/navigation",
     orders: "/orders",
     signIn: "/signIn",
-    signUp: "//signUp",
+    signUp: "/signUp",
     profile: "/profile",
     searchResult: "/searchResult/",
 };

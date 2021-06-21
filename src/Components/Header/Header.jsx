@@ -13,7 +13,6 @@ function Header({ history }) {
 
     return (
         <div className='header'>
-            {console.log(history)}
             <h1 className='header__title' onClick={() => history.push(ROUTER_LINKS.home)}>
                 MY SHOP
             </h1>

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { HorizontalDragScrollEnable } from "../../util";
 import GradeSharpIcon from "@material-ui/icons/GradeSharp";
+import { ROUTER_LINKS } from "../../Router";
+import { withRouter } from "react-router-dom";
 
 import "./ProductHomeView.css";
 
-export default class ProductHomeView extends Component {
+class ProductHomeView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -83,12 +85,19 @@ export default class ProductHomeView extends Component {
 
     render() {
         const { products } = this.state;
+        const { history } = this.props;
         return (
             <div className={`product-home-view drag-scroll-${this.props.classKey}`}>
                 {products.map((product, index) => (
                     <div id={product + index} className='product-home-view__container'>
                         <span className='product-home-view__name'>{product.name}</span>
                         <img className='product-home-view__image' src={product.imageUrl} alt='cannot load' />
+                        <div className='product-home-view__image-hover'>
+                            <div className='product-home-view__btn' onClick={() => history.push(ROUTER_LINKS.item + product.name)}>
+                                {" "}
+                                VIEW PRODUCT{" "}
+                            </div>
+                        </div>
                         <div className='product-home-view__bottom'>
                             <span className='product-home-view__price'>
                                 <span className='product-home-view__price-strike'>${product.price + 100}</span>${product.price}
@@ -105,3 +114,5 @@ export default class ProductHomeView extends Component {
         );
     }
 }
+
+export default withRouter(ProductHomeView);

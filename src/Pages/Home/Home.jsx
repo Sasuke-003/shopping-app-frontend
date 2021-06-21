@@ -6,7 +6,7 @@ import "./Home.css";
 
 function Home() {
     return (
-        <div>
+        <div className='home'>
             <Category />
             <Banner />
             <h1 className='product-home-view-title'>ON SALE</h1>

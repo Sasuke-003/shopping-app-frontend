@@ -10,6 +10,11 @@
 
 .product-home-view__container {
     margin-right: 50px;
+    position: relative;
+}
+
+.product-home-view__container:hover .product-home-view__image-hover {
+    display: block;
 }
 
 .product-home-view__name {
@@ -22,6 +27,31 @@
     width: 475px;
     height: 600px;
 }
+
+.product-home-view__image-hover {
+    margin: 40px 0 10px 0;
+    width: 475px;
+    height: 600px;
+    background: var(--secondary);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    opacity: 50%;
+    display: none;
+}
+
+.product-home-view__btn {
+    padding: 10px;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    text-align: center;
+    margin: 60% 25% 0 25%;
+}
+
+.product-home-view__btn:hover {
+    transition: 0.2s ease-in;
+}
+
 .product-home-view__bottom {
     display: flex;
     justify-content: space-between;

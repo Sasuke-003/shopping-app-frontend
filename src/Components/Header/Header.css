@@ -2,12 +2,24 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: 1fr;
-    gap: 0px 25%;
+    gap: 0px 0%;
     grid-auto-flow: column;
     width: 100%;
-    height: 11%;
+    height: 8vh;
     border-bottom: 2px solid var(--border);
     color: var(--secondary);
+    /* position: absolute;
+    top: 0;
+    z-index: 100; */
+    position: fixed;
+    backdrop-filter: blur(15px);
+    z-index: 11111;
+}
+
+@media (min-width: 1375px) {
+    .header {
+        gap: 0px 25%;
+    }
 }
 
 .header__title {
