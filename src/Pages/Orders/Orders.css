@@ -1,0 +1,116 @@
+.orders {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* grid-template-rows: 1fr; */
+    /* gap: 100px 50px; */
+    grid-auto-flow: row;
+    grid-template-areas: ".";
+    width: 100%;
+    /* margin: 50px; */
+    padding-bottom: 150px;
+}
+
+.orders__no-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 92vh;
+}
+
+.orders__title-no-items {
+    font-family: "Anton", sans-serif;
+    font-size: 50px;
+    font-weight: 100;
+}
+
+.orders__title {
+    padding: 20px 0 20px 50px;
+    font-family: "Anton", sans-serif;
+    font-size: 50px;
+    font-weight: 100;
+    border-bottom: 2px solid var(--border);
+}
+
+.orders__item-container {
+    padding: 50px;
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid var(--border);
+    position: relative;
+}
+
+.orders__item-image {
+    width: 15%;
+    /* width: 200px; */
+    height: 20vw;
+    object-fit: cover;
+}
+
+.orders__item-detail-container {
+    margin-left: 50px;
+    width: 100%;
+}
+
+.orders__item-name-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.orders__item-name {
+    text-transform: uppercase;
+    /* margin: 20px 0 0 20px; */
+    font-family: "Anton", sans-serif;
+    font-size: 35px;
+    font-weight: 100;
+}
+
+.orders__item-price {
+    text-transform: uppercase;
+    /* margin: 20px 0 0 20px; */
+    /* font-family: "Anton", sans-serif; */
+    font-size: 30px;
+    font-weight: 500;
+}
+.orders__item-other-details {
+    text-transform: uppercase;
+    margin: 15px 0 0 0;
+    /* font-family: "Anton", sans-serif; */
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.orders__item-qty-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.orders__item-qty-title {
+    text-transform: uppercase;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.orders__remove-btn {
+    padding: 5px;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid var(--secondary);
+    transition: 0.2s ease-in;
+}
+
+.orders__remove-btn:hover {
+    /* text-decoration: underline; */
+    border: 5px solid var(--secondary);
+    transition: 0.2s ease-in;
+}
+
+.orders__item-rate-text {
+    margin-top: 5px;
+    text-align: right;
+}

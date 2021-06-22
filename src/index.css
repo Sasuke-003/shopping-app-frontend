@@ -20,11 +20,22 @@
 
 body {
     max-width: 100vw;
+    background: var(--primary);
 }
 
 *::-webkit-scrollbar {
     display: none;
 }
+* {
+    color: var(--secondary);
+}
+
+/* :root {
+    --primary: #000000;
+    --secondary: #ffffff;
+    --border: #252420;
+    --borderSecondary: #707070;
+} */
 
 :root {
     --primary: #ffffff;

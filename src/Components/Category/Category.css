@@ -9,6 +9,10 @@
     border-bottom: 2px solid var(--border);
 }
 
+.category__item-container {
+    position: relative;
+}
+
 .category__item {
     margin-right: 50px;
     display: flex;
@@ -23,6 +27,30 @@
     width: 13vw;
     border-radius: 50%;
     border: 1px solid var(--borderSecondary);
+}
+
+.category__image-hover {
+    position: absolute;
+    background: var(--secondary);
+    opacity: 50%;
+    height: 13vw;
+    width: 13vw;
+    border-radius: 50%;
+    border: 1px solid var(--borderSecondary);
+    top: 0;
+    display: none;
+}
+
+.category__image-hover-btn {
+    padding: 10px;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    text-align: center;
+    margin: 45% 25% 0 25%;
+}
+
+.category__item-container:hover .category__image-hover {
+    display: block;
 }
 
 .category__name {

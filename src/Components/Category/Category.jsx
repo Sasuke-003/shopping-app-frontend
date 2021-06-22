@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import "./Category.css";
 import { HorizontalDragScrollEnable } from "../../util";
+import { ROUTER_LINKS } from "../../Router";
+import { withRouter } from "react-router-dom";
 
-export default class Category extends Component {
+class Category extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -61,18 +63,38 @@ export default class Category extends Component {
         HorizontalDragScrollEnable("category");
     }
 
+    // handleClick = (name) => {
+    //     const { history } = this.props;
+    //     let drag = false;
+    //     document.addEventListener("mousedown", () => (drag = false));
+    //     document.addEventListener("mousemove", () => (drag = true));
+    //     document.addEventListener("mouseup", () => {
+    //         if (!drag) history.push(ROUTER_LINKS.searchResult + name);
+    //     });
+    // };
+
     render() {
         const { categories } = this.state;
+        const { history } = this.props;
 
         return (
             <div className='category'>
                 {categories.map((category, index) => (
-                    <div id={category + index} className='category__item'>
-                        <img className='category__image' src={category.imageUrl} alt='cannot load' />
-                        <span className='category__name'>{category.name}</span>
+                    <div className='category__item-container'>
+                        <div id={category + index} className='category__item'>
+                            <img className='category__image' src={category.imageUrl} alt='cannot load' />
+                            <span className='category__name'>{category.name}</span>
+                        </div>
+                        <div className='category__image-hover'>
+                            <div className='category__image-hover-btn' onClick={() => history.push(ROUTER_LINKS.searchResult + category.name)}>
+                                VIEW
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
         );
     }
 }
+
+export default withRouter(Category);

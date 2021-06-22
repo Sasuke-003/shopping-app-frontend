@@ -139,10 +139,10 @@ class ItemDetails extends Component {
                         <div className='item-details__ratings'>
                             <div>
                                 {[...Array(5 - item.rating)].map((elementInArray, index) => (
-                                    <StarBorderIcon key={item.name + index + elementInArray} style={{ marginLeft: "5px", fontSize: "55px" }} />
+                                    <StarBorderIcon key={item.name + index + elementInArray + 1} style={{ marginLeft: "5px", fontSize: "55px" }} />
                                 ))}
                                 {[...Array(item.rating)].map((elementInArray, index) => (
-                                    <GradeSharpIcon key={item.name + index + elementInArray} style={{ marginLeft: "5px", fontSize: "55px" }} />
+                                    <GradeSharpIcon key={item.name + index + elementInArray + 2} style={{ marginLeft: "5px", fontSize: "55px" }} />
                                 ))}
                             </div>
                             <h4>{item.noOfRatings} Ratings</h4>
@@ -153,13 +153,14 @@ class ItemDetails extends Component {
                     <h1 className='item-details__stock'>{selected.inStock ? "IN STOCK" : "THIS PRODUCT IS CURRENTLY OUT OF STOCK"}</h1>
                 </div>
                 <div className='item-details__selectable'>
-                    {units.map((unit) => (
-                        <div className='item-details__selectable-unit'>
+                    {units.map((unit, index) => (
+                        <div key={unit + index} className='item-details__selectable-unit'>
                             {" "}
                             <h1 className='item-details__unit-name'>{unit}</h1>
                             <div className='item-details__selectable-unit-value-container'>
                                 {selectable[unit].map((unitValue) => (
                                     <div
+                                        key={unitValue + index}
                                         className={`item-details__selectable-unit-value ${
                                             selected[unit] === unitValue ? "item-details__selectable-unit-value-active" : ""
                                         }`}
@@ -178,7 +179,9 @@ class ItemDetails extends Component {
                 <div className='item-details__description'>
                     <h1 className='item-details__unit-name'>PRODUCT DETAILS</h1>
                     {details.map((detail) => (
-                        <p className='item-details__detail'>{detail}</p>
+                        <p key={detail} className='item-details__detail'>
+                            {detail}
+                        </p>
                     ))}
                 </div>
             </div>

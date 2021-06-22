@@ -18,6 +18,7 @@
     padding: 10px;
     text-transform: uppercase;
     transition: 0.1s ease-in-out;
+    background: var(--primary);
 }
 
 .search__search-box:focus {

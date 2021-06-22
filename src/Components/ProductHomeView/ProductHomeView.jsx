@@ -83,6 +83,16 @@ class ProductHomeView extends Component {
         HorizontalDragScrollEnable(`drag-scroll-${this.props.classKey}`);
     }
 
+    // handleClick = (name) => {
+    //     const { history } = this.props;
+    //     let drag = false;
+    //     document.addEventListener("mousedown", () => (drag = false));
+    //     document.addEventListener("mousemove", () => (drag = true));
+    //     document.addEventListener("mouseup1", () => {
+    //         if (!drag) history.push(ROUTER_LINKS.item + name);
+    //     });
+    // };
+
     render() {
         const { products } = this.state;
         const { history } = this.props;
@@ -94,8 +104,7 @@ class ProductHomeView extends Component {
                         <img className='product-home-view__image' src={product.imageUrl} alt='cannot load' />
                         <div className='product-home-view__image-hover'>
                             <div className='product-home-view__btn' onClick={() => history.push(ROUTER_LINKS.item + product.name)}>
-                                {" "}
-                                VIEW PRODUCT{" "}
+                                VIEW PRODUCT
                             </div>
                         </div>
                         <div className='product-home-view__bottom'>
