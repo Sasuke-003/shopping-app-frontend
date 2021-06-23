@@ -9,4 +9,5 @@ export const ROUTER_LINKS = {
     signUp: "/signUp",
     profile: "/profile",
     searchResult: "/searchResult/",
+    addProduct: "/addProduct",
 };

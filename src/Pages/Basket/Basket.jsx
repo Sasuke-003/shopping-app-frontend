@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 import "./Basket.css";
+import { openMyPopup } from "../../util";
 
 class Basket extends Component {
     constructor(props) {
@@ -55,7 +56,11 @@ class Basket extends Component {
                                 </select>
                             </div>
                         </div>
-                        <div className='basket__remove-btn'>REMOVE FROM BASKET</div>
+                        <div
+                            className='basket__remove-btn'
+                            onClick={() => openMyPopup("Are you sure you want to remove this product from the basket?", () => alert("hmm"))}>
+                            REMOVE FROM BASKET
+                        </div>
                     </div>
                 ))}
             </div>

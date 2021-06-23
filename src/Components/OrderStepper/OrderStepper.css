@@ -1,0 +1,17 @@
+.orderStepper .MuiStepper-root {
+    background: transparent !important;
+}
+
+.orderStepper .MuiTypography-root {
+    /* color: #17b978 !important; */
+    /* color: red !important; */
+}
+
+.orderStepper .MuiStepIcon-root {
+    /* color: green !important; */
+    /* color: #17b978 !important; */
+}
+
+.orderStepper .MuiStepIcon-root.MuiStepIcon-active {
+    /* color: #17b978 !important; */
+}

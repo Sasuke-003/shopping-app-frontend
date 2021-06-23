@@ -40,30 +40,12 @@ class ItemDetails extends Component {
                         },
                     },
                 ],
-                item_desc: [
-                    "The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance",
-                    "Warp Charge: Charge for 10 min playback.",
-                ],
-                item_detail: {
-                    "Special Feature": "Neckband",
-                    "Connector Type": "Wireless",
-                    Brand: "OnePlus",
-                },
+                item_desc:
+                    " The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. ",
             },
             selected: {},
             selectable: {},
             units: [],
-            details: [],
         };
     }
 
@@ -88,14 +70,11 @@ class ItemDetails extends Component {
                 selected["inStock"] = data[i].inStock;
             }
         }
-        Object.keys(item.item_detail).forEach((detailName) => {
-            details.push(detailName + " : " + item.item_detail[detailName]);
-        });
+
         this.setState({
             selectable: newData,
             selected: selected,
             units: units,
-            details: details,
         });
     }
 
@@ -176,14 +155,11 @@ class ItemDetails extends Component {
                     <h1 className='item-details__unit-name'>PRODUCT DESCRIPTION</h1>
                     <p>{item.item_desc}</p>
                 </div>
-                <div className='item-details__description'>
+                {/* <div className='item-details__description'>
                     <h1 className='item-details__unit-name'>PRODUCT DETAILS</h1>
-                    {details.map((detail) => (
-                        <p key={detail} className='item-details__detail'>
-                            {detail}
-                        </p>
-                    ))}
-                </div>
+                  
+                    <p className='item-details__detail'>{item.item_detail}</p>
+                </div> */}
             </div>
         );
     }

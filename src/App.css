@@ -1,3 +1,7 @@
 .App__page {
     padding-top: 8vh;
 }
+
+.MuiAlert-root {
+    border-radius: 0px !important;
+}

@@ -11,11 +11,16 @@ import Basket from "./Pages/Basket/Basket.jsx";
 import Navigation from "./Pages/Navigation/Navigation";
 import Search from "./Pages/Search/Search";
 import Item from "./Pages/Item/Item";
+import AddProduct from "./Pages/AddProduct/AddProduct";
 import SearchResult from "./Pages/SearchResult/SearchResult";
 import { ROUTER_LINKS } from "./Router";
+import { throwMsg } from "./util";
+import { openSnackbar } from "./redux/snackbar/snackbar.actions";
+import { getMsgYN } from "./util";
 
 class App extends React.Component {
     render() {
+        const { snackbarStatus, openSnackbar } = this.props;
         return (
             <div className='App'>
                 <Header />
@@ -28,6 +33,11 @@ class App extends React.Component {
                             exact
                             path={ROUTER_LINKS.basket}
                             render={() => (this.props.currentUser ? <Basket /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.addProduct}
+                            render={() => (this.props.currentUser ? <AddProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                         <Route exact path={ROUTER_LINKS.navigation} render={() => (this.props.currentUser ? <Navigation /> : <Navigation />)} />
                         <Route
@@ -50,6 +60,13 @@ class App extends React.Component {
                             render={() => (this.props.currentUser ? <SearchResult /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                     </Switch>
+                    {throwMsg(
+                        snackbarStatus.open,
+                        () => openSnackbar({ open: false, status: "", msg: "" }),
+                        snackbarStatus.status,
+                        snackbarStatus.msg
+                    )}
+                    {getMsgYN(snackbarStatus.popupMsg, snackbarStatus.popupYesFunc)}
                 </div>
             </div>
         );
@@ -58,6 +75,11 @@ class App extends React.Component {
 
 const mapSateToProps = (state) => ({
     currentUser: state.shoppingAppUser.currentUser,
+    snackbarStatus: state.snackbar,
 });
 
-export default connect(mapSateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+    openSnackbar: (status) => dispatch(openSnackbar(status)),
+});
+
+export default connect(mapSateToProps, mapDispatchToProps)(App);

@@ -1,3 +1,8 @@
+import Snackbars from "./Components/snackbars/Snackbars";
+import { store } from "./redux/store";
+import { openSnackbar } from "./redux/snackbar/snackbar.actions";
+import Popup from "./Components/Popup/Popup";
+
 export const HorizontalDragScrollEnable = (className) => {
     const slider = document.querySelector("." + className);
     let mouseDown = false;
@@ -27,3 +32,36 @@ export const HorizontalDragScrollEnable = (className) => {
     slider.addEventListener("mouseup", stopDragging, false);
     slider.addEventListener("mouseleave", stopDragging, false);
 };
+
+export const throwMsg = (open, handleClose, status, msg) => <Snackbars open={open} handleClose={handleClose} status={status} message={msg} />;
+
+export const getPopup = (status, msg) => store.dispatch(openSnackbar({ open: true, status: status, msg: msg }));
+export const openMyPopup = (msg, func) => store.dispatch(openSnackbar({ popupOpen: true, popupMsg: msg, popupYesFunc: func }));
+export const closePopup = () => store.dispatch(openSnackbar({ popupOpen: false, popupMsg: "", popupYesFunc: null }));
+
+export const getMsgYN = (msg, handleYes, noBtn = false) => (
+    <Popup>
+        <div className='orders__popup'>
+            <div className='orders__popup-msg'>{msg}</div>
+            {noBtn ? (
+                <div className='orders__popup-ok-btn' onClick={() => closePopup()}>
+                    OK
+                </div>
+            ) : (
+                <div className='orders__popup-buttons'>
+                    <div className='orders__popup-btn' onClick={() => closePopup()}>
+                        NO
+                    </div>
+                    <div
+                        className='orders__popup-btn'
+                        onClick={() => {
+                            handleYes();
+                            closePopup();
+                        }}>
+                        YES
+                    </div>
+                </div>
+            )}
+        </div>
+    </Popup>
+);

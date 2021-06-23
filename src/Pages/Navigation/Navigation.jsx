@@ -26,11 +26,10 @@ function Navigation({ history }) {
                 <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.profile)}>
                     <h1 className='navigation__links'>PROFILE</h1>
                 </div>
-                <div class='navigation__links-container'>
-                    <h1 className='navigation__links'>
-                        <LockSharpIcon style={{ fontSize: 70 }} />
-                    </h1>
+                <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.addProduct)}>
+                    <h1 className='navigation__links'>ADD PRODUCT</h1>
                 </div>
+
                 <div class='navigation__links-container'>
                     <h1 className='navigation__links'>
                         <LockSharpIcon style={{ fontSize: 70 }} />

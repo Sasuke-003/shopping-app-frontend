@@ -1,0 +1,21 @@
+.MuiDialog-root .MuiDialog-container .MuiPaper-root {
+    background-color: var(--primary) !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+}
+
+.MuiBackdrop-root {
+    /* background: var(--primary) !important; */
+    opacity: 20% !important;
+    backdrop-filter: blur(15px) !important;
+}
+
+.MuiButton-textPrimary {
+    color: var(--secondary) !important;
+}
+
+.MuiDialogTitle-root .MuiTypography-root {
+    color: var(--secondary) !important;
+}
+
+/* MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthMd MuiDialog-paperFullWidth MuiPaper-elevation24 MuiPaper-rounded */
