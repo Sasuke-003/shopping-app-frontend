@@ -2,6 +2,8 @@ import Snackbars from "./Components/snackbars/Snackbars";
 import { store } from "./redux/store";
 import { openSnackbar } from "./redux/snackbar/snackbar.actions";
 import Popup from "./Components/Popup/Popup";
+import { setCurrentUserStatus } from "./redux/userStatus/userStatus.actions";
+import { setCurrentUserToken } from "./redux/userToken/userToken.actions";
 
 export const HorizontalDragScrollEnable = (className) => {
     const slider = document.querySelector("." + className);
@@ -65,3 +67,9 @@ export const getMsgYN = (msg, handleYes, noBtn = false) => (
         </div>
     </Popup>
 );
+
+export const setUserStatus = (status, value) => store.dispatch(setCurrentUserStatus([status, value]));
+
+export const setUserToken = (token) => store.dispatch(setCurrentUserToken(token));
+
+export const getToken = () => store.getState().userToken;

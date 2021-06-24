@@ -29,23 +29,16 @@ function Navigation({ history }) {
                 <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.addProduct)}>
                     <h1 className='navigation__links'>ADD PRODUCT</h1>
                 </div>
-
-                <div class='navigation__links-container'>
-                    <h1 className='navigation__links'>
-                        <LockSharpIcon style={{ fontSize: 70 }} />
-                    </h1>
+                <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.deleteProduct)}>
+                    <h1 className='navigation__links'>DELETE PRODUCT</h1>
                 </div>
             </div>
             <div class='navigation__third-row'>
-                <div class='navigation__links-container'>
-                    <h1 className='navigation__links'>
-                        <LockSharpIcon style={{ fontSize: 70 }} />
-                    </h1>
-                </div>
-                <div class='navigation__links-container'>
-                    <h1 className='navigation__links'>
-                        <LockSharpIcon style={{ fontSize: 70 }} />
-                    </h1>
+                <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.addBanner)}>
+                    <h1 className='navigation__links'>ADD BANNER</h1>
+                </div>{" "}
+                <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.addOnSale)}>
+                    <h1 className='navigation__links'>ADD ON SALE</h1>
                 </div>
                 <div class='navigation__links-container'>
                     <h1 className='navigation__links'>

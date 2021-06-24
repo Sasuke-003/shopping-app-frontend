@@ -13,6 +13,9 @@ import Search from "./Pages/Search/Search";
 import Item from "./Pages/Item/Item";
 import AddProduct from "./Pages/AddProduct/AddProduct";
 import SearchResult from "./Pages/SearchResult/SearchResult";
+import AddBanner from "./Pages/AddBanner/AddBanner";
+import DeleteProduct from "./Pages/DeleteProduct/DeleteProduct";
+import AddOnSale from "./Pages/AddOnSale/AddOnSale";
 import { ROUTER_LINKS } from "./Router";
 import { throwMsg } from "./util";
 import { openSnackbar } from "./redux/snackbar/snackbar.actions";
@@ -20,6 +23,7 @@ import { getMsgYN } from "./util";
 
 class App extends React.Component {
     render() {
+        const { isLoggedIn } = this.props.userStatus;
         const { snackbarStatus, openSnackbar } = this.props;
         return (
             <div className='App'>
@@ -27,37 +31,36 @@ class App extends React.Component {
                 <div className='App__page'>
                     <Switch>
                         <Route exact path='/' render={() => <Home />} />
-                        <Route exact path={ROUTER_LINKS.signIn} render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignIn />)} />
-                        <Route exact path={ROUTER_LINKS.signUp} render={() => (this.props.currentUser ? <Redirect to='/' /> : <SignUp />)} />
-                        <Route
-                            exact
-                            path={ROUTER_LINKS.basket}
-                            render={() => (this.props.currentUser ? <Basket /> : <Redirect to={ROUTER_LINKS.signIn} />)}
-                        />
+                        <Route exact path={ROUTER_LINKS.signIn} render={() => (isLoggedIn ? <Redirect to='/' /> : <SignIn />)} />
+                        <Route exact path={ROUTER_LINKS.signUp} render={() => (isLoggedIn ? <Redirect to='/' /> : <SignUp />)} />
+                        <Route exact path={ROUTER_LINKS.basket} render={() => (isLoggedIn ? <Basket /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route
                             exact
                             path={ROUTER_LINKS.addProduct}
-                            render={() => (this.props.currentUser ? <AddProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            render={() => (isLoggedIn ? <AddProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
-                        <Route exact path={ROUTER_LINKS.navigation} render={() => (this.props.currentUser ? <Navigation /> : <Navigation />)} />
+                        <Route exact path={ROUTER_LINKS.navigation} render={() => (isLoggedIn ? <Navigation /> : <Navigation />)} />
+                        <Route exact path={ROUTER_LINKS.search} render={() => (isLoggedIn ? <Search /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
+                        <Route exact path={ROUTER_LINKS.orders} render={() => (isLoggedIn ? <Orders /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route
                             exact
-                            path={ROUTER_LINKS.search}
-                            render={() => (this.props.currentUser ? <Search /> : <Redirect to={ROUTER_LINKS.signIn} />)}
-                        />
-                        <Route
-                            exact
-                            path={ROUTER_LINKS.orders}
-                            render={() => (this.props.currentUser ? <Orders /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            path={ROUTER_LINKS.deleteProduct}
+                            render={() => (isLoggedIn ? <DeleteProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                         <Route
                             exact
-                            path={ROUTER_LINKS.item + ":id"}
-                            render={() => (this.props.currentUser ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            path={ROUTER_LINKS.addBanner}
+                            render={() => (isLoggedIn ? <AddBanner /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.addOnSale}
+                            render={() => (isLoggedIn ? <AddOnSale /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                        <Route path={ROUTER_LINKS.item + ":id"} render={() => (isLoggedIn ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route
                             path={ROUTER_LINKS.searchResult + ":id"}
-                            render={() => (this.props.currentUser ? <SearchResult /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            render={() => (isLoggedIn ? <SearchResult /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                     </Switch>
                     {throwMsg(
@@ -74,7 +77,8 @@ class App extends React.Component {
 }
 
 const mapSateToProps = (state) => ({
-    currentUser: state.shoppingAppUser.currentUser,
+    userStatus: state.userStatus.currentUserStatus,
+    userToken: state.userToken,
     snackbarStatus: state.snackbar,
 });
 

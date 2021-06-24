@@ -10,4 +10,7 @@ export const ROUTER_LINKS = {
     profile: "/profile",
     searchResult: "/searchResult/",
     addProduct: "/addProduct",
+    deleteProduct: "/deleteProduct",
+    addBanner: "/addBanner",
+    addOnSale: "/addOnSale",
 };

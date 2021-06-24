@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { Container, Row, Col, Form, Button, ProgressBar, Alert } from "react-bootstrap";
 import axios from "axios";
-import "./ImageUploader.css";
+import "./AddBanner.css";
 import { getPopup } from "../../util";
 
-function ImageUploader({ product }) {
+function AddBanner() {
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [progress, setProgress] = useState();
     const [error, setError] = useState();
 
-    const uploadImage = (i) => {
+    const submitHandler = (e) => {
+        e.preventDefault(); //prevent the form from submitting
         let formData = new FormData();
 
-        formData.append("img", selectedFiles[i]);
+        formData.append("img", selectedFiles[0]);
         //Clear the error message
         setError("");
         axios
-            .post("http://localhost:8080/item/add", formData, {
+            .post("/item/add", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -37,25 +38,18 @@ function ImageUploader({ product }) {
                 }
             });
     };
-
-    const submitHandler = (e) => {
-        e.preventDefault(); //prevent the form from submitting
-        // if(product.name === ''){
-        //     getPopup('error', 'Name cannot be empty');
-        // }
-    };
     return (
         <Container id='image-uploader__container'>
-            <h3 className='add-product__basic-title'>IMAGES</h3>{" "}
+            <h3 className='add-product__basic-title'>CURRENT BANNER</h3>{" "}
+            <img className='add-banner-banner' src='/images/winter-banner.jpg' alt='No banner is set' />
             <Row>
                 <Col lg={{ span: 4, offset: 3 }}>
                     <Form action='http://localhost:8081/upload_file' method='post' encType='multipart/form-data' onSubmit={submitHandler}>
                         <Form.Group>
                             <Form.File
                                 id='exampleFormControlFile1'
-                                label='CHOOSE IMAGES FOR THE PRODUCT'
+                                label='CHOOSE IMAGE FOR BANNER'
                                 name='file'
-                                multiple
                                 onChange={(e) => {
                                     setSelectedFiles(e.target.files);
                                 }}
@@ -63,10 +57,11 @@ function ImageUploader({ product }) {
                         </Form.Group>
                         <Form.Group>
                             <Button id='add-product-btn' variant='info' type='submit'>
-                                ADD PRODUCT
+                                UPLOAD BANNER
                             </Button>
                         </Form.Group>
                         {error && <Alert variant='danger'>{error}</Alert>}
+
                         {!error && progress && <ProgressBar now={progress} label={`${progress}%`} />}
                     </Form>
                 </Col>
@@ -75,4 +70,4 @@ function ImageUploader({ product }) {
     );
 }
 
-export default ImageUploader;
+export default AddBanner;

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import "./AddProduct.css";
 import ClearSharpIcon from "@material-ui/icons/ClearSharp";
+import ImageUploader from "../../Components/ImageUploader/ImageUploader";
 
+let timerID;
+const timeOutValue = 500;
+let sellerDataSet = new Set();
 class AddProduct extends Component {
     constructor(props) {
         super(props);
@@ -9,6 +13,7 @@ class AddProduct extends Component {
             product: {
                 name: "OnePlus Bullets Wireless Z Bass Edition",
                 rating: 3,
+                category: "",
                 noOfRatings: 2532,
                 sub_detail: [
                     {
@@ -45,6 +50,8 @@ class AddProduct extends Component {
             selectable: ["ad", "sd", "sad"],
             temp: "",
             currentPrdct: "",
+            nameAutoComplete: [],
+            categoryAutoComplete: [],
         };
     }
 
@@ -162,11 +169,31 @@ class AddProduct extends Component {
         this.setState({ currentPrdct: data.id, product: tempProduct });
     };
 
+    handleAutoComplete = (event) => {
+        const { name, value } = event.target;
+        this.handleChange(event);
+
+        if (timerID) clearTimeout(timerID);
+
+        timerID = setTimeout(async () => {
+            timerID = undefined;
+            const searchData = value;
+
+            if (searchData !== "") {
+                let res = ["my", "name", "is", "issdsd"];
+                if (name === "name") {
+                    this.setState({ nameAutoComplete: res });
+                } else {
+                    this.setState({ categoryAutoComplete: ["hafeez"] });
+                }
+            }
+        }, timeOutValue);
+    };
+
     render() {
-        const { product, selectable, temp, currentPrdct } = this.state;
+        const { product, selectable, temp, currentPrdct, nameAutoComplete, categoryAutoComplete } = this.state;
         return (
             <div className='add-product'>
-                {console.log(this.state.product.sub_detail)}
                 <h1 className='orders__title'>ADD PRODUCT</h1>
                 <div className='add-product__basic-details'>
                     <div className='add-product__name-container'>
@@ -178,9 +205,33 @@ class AddProduct extends Component {
                                 type='text'
                                 name='name'
                                 value={product.name}
-                                onChange={this.handleChange}
+                                onChange={(e) => this.handleAutoComplete(e)}
                                 placeholder='type something....'
+                                list='name-auto-complete'
                             />
+                            <datalist id='name-auto-complete'>
+                                {nameAutoComplete.map((option, index) => (
+                                    <option key={option + index} value={option} />
+                                ))}
+                            </datalist>
+                        </div>
+                        <div className='add-product__input-container'>
+                            {" "}
+                            <h3 className='add-product__basic-title'>CATEGORY</h3>{" "}
+                            <input
+                                className='add-product__name-input'
+                                type='text'
+                                name='category'
+                                value={product.category}
+                                onChange={(e) => this.handleAutoComplete(e)}
+                                placeholder='type something....'
+                                list='category-auto-complete'
+                            />
+                            <datalist id='category-auto-complete'>
+                                {categoryAutoComplete.map((option, index) => (
+                                    <option key={option + index} value={option} />
+                                ))}
+                            </datalist>
                         </div>
                         <div className='add-product__input-container'>
                             {" "}
@@ -292,6 +343,7 @@ class AddProduct extends Component {
                         ADD STOCK
                     </div>
                 </div>
+                <ImageUploader product={product} />
             </div>
         );
     }

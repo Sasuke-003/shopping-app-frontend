@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
-import userReducer from "./user/user.reducer";
+import userStatusReducer from "./userStatus/userStatus.reducer";
+import userTokenReducer from "./userToken/userToken.reducer";
 import snackbarReducer from "./snackbar/snackbar.reducer";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -12,7 +13,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    shoppingAppUser: userReducer,
+    userStatus: userStatusReducer,
+    userToken: userTokenReducer,
     snackbar: snackbarReducer,
 });
 
