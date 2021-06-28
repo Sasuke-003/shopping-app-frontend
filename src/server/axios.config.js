@@ -25,13 +25,11 @@ axios.interceptors.response.use(
         log.response(res);
         return res?.data?.data;
     },
-
     async (err) => {
         const failedRequest = err.config;
-
         log.response(err);
         const errType = err?.response?.data?.err;
-        if (err?.response?.data?.info) getPopup("error", err.response.data.info);
+        // if (err?.response?.data?.info) getPopup("error", err.response.data.info);
         // If Server isn't running code will be undefined
         if (errType === undefined) {
             getPopup("error", "Server Offline, Try After Sometime...");
@@ -42,11 +40,11 @@ axios.interceptors.response.use(
                 case "TokenExpired":
                     // If There is any token error while refreshing token then sign-out immediately
                     if (err.config.url === "/tok/refresh") return token.clearToken();
-
                     // Otherwise Obtain refresh token and retry failed request
+                    getPopup("error", "token expired");
                     return token.getNewTokenAndRetry(failedRequest);
-
                 default:
+                    getPopup("error", err.response.data.info);
                     break;
             }
         }
