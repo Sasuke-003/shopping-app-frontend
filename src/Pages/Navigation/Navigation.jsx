@@ -3,6 +3,7 @@ import { ROUTER_LINKS } from "../../Router";
 import { withRouter } from "react-router-dom";
 import LockSharpIcon from "@material-ui/icons/LockSharp";
 import { connect } from "react-redux";
+import { api } from "../../server";
 import "./Navigation.css";
 
 function Navigation({ history, userStatus }) {
@@ -81,9 +82,9 @@ function Navigation({ history, userStatus }) {
             </div>
 
             <div class='navigation__fourth-row navigation__links-container'>
-                <h1 className='navigation__links'>
-                    <LockSharpIcon style={{ fontSize: 70 }} />
-                </h1>
+                <div onClick={() => api.token.clearToken()}>
+                    <h1 className='navigation__links'>LOGOUT</h1>
+                </div>
             </div>
         </div>
     );
