@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { ROUTER_LINKS } from "../../Router";
 import "./Search.css";
 
 function Search({ history }) {
     const [searchString, setSearchString] = useState("");
-    const [searchHelper, setSearchHelper] = useState([
-        "One Plus 3",
-        "One Plus 3T",
-        "One Plus 5",
-        "One Plus 3T",
-        "One Plus 6",
-        "One Plus 6T",
-        "One Plus 7",
-        "One Plus 8T",
-        "One Plus 8 Pro",
-        "One Plus 9R",
-    ]);
+    const [searchHelper, setSearchHelper] = useState();
+
+    useEffect(() => {
+        // getData = async () => {
+        // }
+    }, []);
 
     return (
         <div className='search'>
@@ -34,8 +28,8 @@ function Search({ history }) {
             </div>
             <div className='search__helper-container'>
                 {searchHelper.map((helpText, index) => (
-                    <div className='search__row' onClick={() => setSearchString(helpText)}>
-                        <h1 className='search__helper-text'>{helpText}</h1>
+                    <div className='search__row' onClick={() => setSearchString(helpText.name)}>
+                        <h1 className='search__helper-text'>{helpText.name}</h1>
                     </div>
                 ))}
             </div>

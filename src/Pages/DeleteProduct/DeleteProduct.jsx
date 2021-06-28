@@ -1,70 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { getPopup } from "../../util";
+import { getPopup, openMyPopup } from "../../util";
+import { api } from "../../server";
 import "./DeleteProduct.css";
 
-function DeleteProduct({ history }) {
+function DeleteProduct() {
     const [searchString, setSearchString] = useState("");
-    const [productData, setProductData] = useState("");
-    const [searchHelper, setSearchHelper] = useState([
-        "One Plus 3",
-        "One Plus 3T",
-        "One Plus 5",
-        "One Plus 3T",
-        "One Plus 6",
-        "One Plus 6T",
-        "One Plus 7",
-        "One Plus 8T",
-        "One Plus 8 Pro",
-        "One Plus 9R",
-    ]);
+    const [autoCompleteData, setAutoCompleteData] = useState([]);
+
     useEffect(() => {
-        const getData = async () => {
+        const getAutoCompleteData = async () => {
             try {
-                const res = [
-                    {
-                        name: "One Plus 3T",
-                        id: 0,
-                    },
-                    {
-                        name: "One Plus 5",
-                        id: 1,
-                    },
-                    {
-                        name: "One Plus 3T",
-                        id: 2,
-                    },
-                    {
-                        name: "One Plus 6",
-                        id: 3,
-                    },
-                    {
-                        name: "One Plus 6T",
-                        id: 4,
-                    },
-                    {
-                        name: "One Plus 7",
-                        id: 5,
-                    },
-                    {
-                        name: "One Plus 8T",
-                        id: 6,
-                    },
-                    {
-                        name: "One Plus 8 Pro",
-                        id: 7,
-                    },
-                    {
-                        name: "One Plus 9R",
-                        id: 8,
-                    },
-                ];
+                const res = await api.item.autoComplete(searchString);
+                setAutoCompleteData(res);
             } catch (e) {}
         };
-        getData();
-    });
+        getAutoCompleteData();
+    }, [searchString]);
+
+    const onProductDelete = async (itemID) => {
+        try {
+            await api.item.delete({ itemID });
+            getPopup("success", "successfully deleted product ");
+            window.location.reload();
+        } catch (e) {
+            getPopup("error", e?.response?.data?.info);
+        }
+    };
 
     return (
         <div className='delete-product'>
+            <h1 className='orders__title'>DELETE PRODUCT</h1>
             <div className='delete-product__input'>
                 <input
                     className='delete-product__delete-product-box'
@@ -72,17 +37,26 @@ function DeleteProduct({ history }) {
                     value={searchString}
                     onChange={(e) => setSearchString(e.target.value)}
                     placeholder='type something....'
+                    list='delete-product-auto-complete'
                 />
-                <div className='delete-product__button'>
-                    <h1 className='delete-product__button-text'>SEARCH</h1>
-                </div>
+                <datalist id='delete-product-auto-complete'>
+                    {autoCompleteData.map((option, index) => (
+                        <option key={option.name + index} value={option.name} />
+                    ))}
+                </datalist>
             </div>
             <div className='delete-product__helper-container'>
-                {searchHelper.map((helpText, index) => (
-                    <div className='delete-product__row'>
-                        <h1 className='delete-product__helper-text'>{helpText}</h1>
+                {autoCompleteData.map((product, index) => (
+                    <div className='delete-product__row' key={product.itemID}>
+                        <h1 className='delete-product__helper-text'>{product.name}</h1>
+                        <h5
+                            className='delete-product__btn'
+                            onClick={() => openMyPopup(`are you sure you want to delete ${product.name}?`, () => onProductDelete(product.itemID))}>
+                            DELETE
+                        </h5>
                     </div>
                 ))}
+                {autoCompleteData.length === 0 ? <h1 style={{ margin: "50px" }}>NO ITEMS TO DISPLAY</h1> : null}
             </div>
         </div>
     );

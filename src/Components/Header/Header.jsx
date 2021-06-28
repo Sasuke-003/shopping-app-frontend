@@ -1,7 +1,6 @@
 import { ROUTER_LINKS } from "../../Router";
 import { withRouter } from "react-router-dom";
 import "./Header.css";
-
 import { useState } from "react";
 import MenuSharpIcon from "@material-ui/icons/MenuSharp";
 import SearchSharpIcon from "@material-ui/icons/SearchSharp";

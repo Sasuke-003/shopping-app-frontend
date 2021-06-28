@@ -41,6 +41,13 @@ export const getPopup = (status, msg) => store.dispatch(openSnackbar({ open: tru
 export const openMyPopup = (msg, func) => store.dispatch(openSnackbar({ popupOpen: true, popupMsg: msg, popupYesFunc: func }));
 export const closePopup = () => store.dispatch(openSnackbar({ popupOpen: false, popupMsg: "", popupYesFunc: null }));
 
+export function validateEmail(email) {
+    const re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    console.log(re.test(String(email).toLowerCase()));
+    return re.test(String(email).toLowerCase());
+}
+
 export const getMsgYN = (msg, handleYes, noBtn = false) => (
     <Popup>
         <div className='orders__popup'>

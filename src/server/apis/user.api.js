@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const url = {
-    signUp: "/user/sign-up",
+    signUp: "/user/sign-up/shop",
     signIn: "/user/sign-in",
     verifyEmail: "/user/verify-email",
     checkOut: "/user/vip-checkout",

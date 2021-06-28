@@ -12,8 +12,11 @@ const INITIAL_STATE = {
 const snackbarReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SnackbarActionTypes.OPEN_SNACKBAR:
-            return action.payload;
-
+            let temp = Object.assign({}, state);
+            Object.keys(action.payload).forEach((key) => {
+                temp[key] = action.payload[key];
+            });
+            return temp;
         default:
             return state;
     }

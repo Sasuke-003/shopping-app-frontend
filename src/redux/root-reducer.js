@@ -8,7 +8,7 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["shoppingAppUser"],
+    whitelist: ["userStatus", "useToken"],
     stateReconciler: autoMergeLevel2,
 };
 

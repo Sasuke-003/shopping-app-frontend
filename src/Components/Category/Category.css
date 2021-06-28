@@ -46,11 +46,14 @@
     color: var(--primary);
     border: 2px solid var(--primary);
     text-align: center;
-    margin: 45% 25% 0 25%;
+    width: 50%;
+    /* margin: 45% 25% 0 25%; */
 }
 
 .category__item-container:hover .category__image-hover {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .category__name {

@@ -14,7 +14,9 @@
 }
 
 .product-home-view__container:hover .product-home-view__image-hover {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .product-home-view__name {
@@ -45,7 +47,7 @@
     color: var(--primary);
     border: 2px solid var(--primary);
     text-align: center;
-    margin: 60% 25% 0 25%;
+    /* margin: 60% 25% 0 25%; */
 }
 
 .product-home-view__btn:hover {

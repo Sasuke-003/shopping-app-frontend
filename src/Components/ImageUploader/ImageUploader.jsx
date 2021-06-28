@@ -1,48 +1,81 @@
 import { useState } from "react";
-import { Container, Row, Col, Form, Button, ProgressBar, Alert } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import "./ImageUploader.css";
 import { getPopup } from "../../util";
+import { api } from "../../server";
 
 function ImageUploader({ product }) {
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [progress, setProgress] = useState();
-    const [error, setError] = useState();
 
-    const uploadImage = (i) => {
+    const uploadImage = () => {
         let formData = new FormData();
 
-        formData.append("img", selectedFiles[i]);
-        //Clear the error message
-        setError("");
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append("img", selectedFiles[i]);
+        }
+        formData.append("itemName", product.name);
         axios
-            .post("http://localhost:8080/item/add", formData, {
+            .post("/item/add-image", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
-                },
-                onUploadProgress: (data) => {
-                    //Set the progress value to show the progress bar
-                    setProgress(Math.round((100 * data.loaded) / data.total));
                 },
             })
             .catch((error) => {
                 const { code } = error?.response?.data;
                 switch (code) {
                     case "FILE_MISSING":
-                        setError("Please select a file before uploading!");
+                        getPopup("error", "Please select a file before uploading!");
                         break;
                     default:
-                        setError("Sorry! Something went wrong. Please try again later");
+                        getPopup("error", "Sorry! Something went wrong. Please try again later");
                         break;
                 }
             });
     };
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault(); //prevent the form from submitting
-        // if(product.name === ''){
-        //     getPopup('error', 'Name cannot be empty');
-        // }
+        let err = false;
+        if (product.name === "") {
+            getPopup("error", "Name cannot be empty");
+            return;
+        }
+        if (product.category === "") {
+            getPopup("error", "Name cannot be empty");
+            return;
+        }
+        if (product.description === "") {
+            getPopup("error", "Name cannot be empty");
+            return;
+        }
+        product.subDetail.forEach((prdct) => {
+            if (prdct.price === 0 || prdct.stock === 0) {
+                getPopup("error", "Price or Stock cannot be empty");
+                err = true;
+                return;
+            }
+            Object.keys(prdct.selectable).forEach((key) => {
+                if (prdct.selectable[key] === "") {
+                    getPopup("error", "Please fill up all the empty fields");
+                    err = true;
+                    return;
+                }
+            });
+        });
+        if (err) return;
+        if (selectedFiles.length < 1) {
+            getPopup("error", "At least one image must be selected");
+            return;
+        }
+        try {
+            await api.item.addDetail(product);
+            uploadImage();
+            getPopup("success", "successfully added " + product.name);
+            window.location.reload();
+        } catch (e) {
+            getPopup("error", e?.response?.data?.info);
+        }
     };
     return (
         <Container id='image-uploader__container'>
@@ -66,8 +99,8 @@ function ImageUploader({ product }) {
                                 ADD PRODUCT
                             </Button>
                         </Form.Group>
-                        {error && <Alert variant='danger'>{error}</Alert>}
-                        {!error && progress && <ProgressBar now={progress} label={`${progress}%`} />}
+                        {/* {error && <Alert variant='danger'>{error}</Alert>} */}
+                        {/* {!error && progress && <ProgressBar now={progress} label={`${progress}%`} />} */}
                     </Form>
                 </Col>
             </Row>

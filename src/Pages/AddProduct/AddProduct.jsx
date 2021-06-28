@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./AddProduct.css";
 import ClearSharpIcon from "@material-ui/icons/ClearSharp";
 import ImageUploader from "../../Components/ImageUploader/ImageUploader";
+import { api } from "../../server";
 
 let timerID;
 const timeOutValue = 500;
@@ -11,43 +12,12 @@ class AddProduct extends Component {
         super(props);
         this.state = {
             product: {
-                name: "OnePlus Bullets Wireless Z Bass Edition",
-                rating: 3,
+                name: "",
                 category: "",
-                noOfRatings: 2532,
-                sub_detail: [
-                    {
-                        price: 1999,
-                        stock: 50,
-                        selectable: {
-                            Color: "Reverb Red",
-                            "Style name": "BWZ-Bass Edition",
-                            "Pattern name": "Earphones",
-                        },
-                    },
-                    {
-                        price: 1500,
-                        stock: 30,
-                        selectable: {
-                            Color: "Base Blue",
-                            "Style name": "BWZ",
-                            "Pattern name": "Earphones",
-                        },
-                    },
-                    {
-                        price: 1500,
-                        stock: 100,
-                        selectable: {
-                            Color: "Reverb Blue",
-                            "Style name": "BWZ",
-                            "Pattern name": "Earphones",
-                        },
-                    },
-                ],
-                item_desc:
-                    " The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. The Bass Edition comes equipped Sweat Resistance Warp Charge: Charge for 10 min playback.The Bass Edition comes equipped Sweat Resistance. ",
+                subDetail: [],
+                description: "",
             },
-            selectable: ["ad", "sd", "sad"],
+            selectable: [],
             temp: "",
             currentPrdct: "",
             nameAutoComplete: [],
@@ -65,14 +35,14 @@ class AddProduct extends Component {
     };
 
     componentDidMount() {
-        // if (this.state.product?.sub_detail?.selectable) {
+        // if (this.state.product?.subDetail?.selectable) {
         this.handleData();
         // }
     }
 
     handleData = () => {
         const { product } = this.state;
-        const data = [...product.sub_detail];
+        const data = [...product.subDetail];
         const units = [];
         let currentPrdct = "";
         for (let i = 0; i < data.length; i++) {
@@ -94,12 +64,12 @@ class AddProduct extends Component {
         let tempSelectable = [...this.state.selectable];
         if (tempSelectable.indexOf(this.state.temp) !== -1) return;
         tempSelectable.push(this.state.temp);
-        let tempSub_Detail = [...this.state.product.sub_detail];
-        tempSub_Detail.forEach((obj) => {
+        let tempsubDetail = [...this.state.product.subDetail];
+        tempsubDetail.forEach((obj) => {
             if (!(this.state.temp in obj.selectable)) obj.selectable[this.state.temp] = "";
         });
         const tempProduct = Object.assign({}, this.state.product);
-        tempProduct["sub_detail"] = tempSub_Detail;
+        tempProduct["subDetail"] = tempsubDetail;
         this.setState({ selectable: tempSelectable, temp: "", product: tempProduct });
     };
 
@@ -108,20 +78,20 @@ class AddProduct extends Component {
         selectable = selectable.filter(function (el, index, arr) {
             return el !== value;
         });
-        let tempSub_Detail = [...this.state.product.sub_detail];
-        tempSub_Detail.forEach((obj) => {
+        let tempsubDetail = [...this.state.product.subDetail];
+        tempsubDetail.forEach((obj) => {
             delete obj.selectable[value];
         });
         const tempProduct = Object.assign({}, this.state.product);
-        tempProduct["sub_detail"] = tempSub_Detail;
+        tempProduct["subDetail"] = tempsubDetail;
         this.setState({ selectable: selectable, temp: "", product: tempProduct });
     };
 
     handleSelectableEditChange = (e, id, isPrice) => {
         const { name, value } = e.target;
-        let tempSub_Detail = [...this.state.product.sub_detail];
+        let tempsubDetail = [...this.state.product.subDetail];
 
-        tempSub_Detail.forEach((obj) => {
+        tempsubDetail.forEach((obj) => {
             if (obj.id === id) {
                 if (isPrice) {
                     obj[name] = value;
@@ -132,44 +102,44 @@ class AddProduct extends Component {
             }
         });
         const tempProduct = Object.assign({}, this.state.product);
-        tempProduct["sub_detail"] = tempSub_Detail;
+        tempProduct["subDetail"] = tempsubDetail;
         this.setState({ product: tempProduct });
     };
 
     handleStockDelete = (id) => {
-        let sub_detail = [...this.state.product.sub_detail];
-        sub_detail = sub_detail.filter(function (el, index, arr) {
+        let subDetail = [...this.state.product.subDetail];
+        subDetail = subDetail.filter(function (el, index, arr) {
             return el.id !== id;
         });
 
         const tempProduct = Object.assign({}, this.state.product);
-        tempProduct["sub_detail"] = sub_detail;
-        // const crId = sub_detail.length > 0 ? sub_detail[0].id : "";
+        tempProduct["subDetail"] = subDetail;
+        // const crId = subDetail.length > 0 ? subDetail[0].id : "";
 
-        this.setState({ currentPrdct: sub_detail[0]?.id, product: tempProduct });
+        this.setState({ currentPrdct: subDetail[0]?.id, product: tempProduct });
     };
 
     handleStockAdd = () => {
-        let sub_detail = [...this.state.product.sub_detail];
-        if (sub_detail.length > 9) return;
+        let subDetail = [...this.state.product.subDetail];
+        if (subDetail.length > 9) return;
         let data = {
             id: Date.now(),
-            stock: "",
-            price: "",
+            stock: 0,
+            price: 0,
             selectable: {},
         };
         this.state.selectable.forEach((s) => {
             data.selectable[s] = "";
         });
-        sub_detail.push(data);
+        subDetail.push(data);
         const tempProduct = Object.assign({}, this.state.product);
-        tempProduct["sub_detail"] = sub_detail;
-        // const crId = sub_detail.length > 0 ? sub_detail[0].id : "";
+        tempProduct["subDetail"] = subDetail;
+        // const crId = subDetail.length > 0 ? subDetail[0].id : "";
 
         this.setState({ currentPrdct: data.id, product: tempProduct });
     };
 
-    handleAutoComplete = (event) => {
+    handleAutoComplete = async (event) => {
         const { name, value } = event.target;
         this.handleChange(event);
 
@@ -180,11 +150,13 @@ class AddProduct extends Component {
             const searchData = value;
 
             if (searchData !== "") {
-                let res = ["my", "name", "is", "issdsd"];
                 if (name === "name") {
+                    const res = await api.item.autoComplete(searchData);
                     this.setState({ nameAutoComplete: res });
-                } else {
-                    this.setState({ categoryAutoComplete: ["hafeez"] });
+                }
+                if (name === "category") {
+                    const res = await api.item.categoryAutoComplete(searchData);
+                    this.setState({ categoryAutoComplete: res });
                 }
             }
         }, timeOutValue);
@@ -211,7 +183,7 @@ class AddProduct extends Component {
                             />
                             <datalist id='name-auto-complete'>
                                 {nameAutoComplete.map((option, index) => (
-                                    <option key={option + index} value={option} />
+                                    <option key={option.name + index} value={option} />
                                 ))}
                             </datalist>
                         </div>
@@ -239,8 +211,8 @@ class AddProduct extends Component {
                             <textarea
                                 className='add-product__name-input'
                                 type='textarea'
-                                name='item_desc'
-                                value={product.item_desc}
+                                name='description'
+                                value={product.description}
                                 onChange={this.handleChange}
                                 placeholder='type something....'
                                 id='txtArea'
@@ -279,7 +251,7 @@ class AddProduct extends Component {
                 </div>
                 <div className='add-product__stock-container'>
                     <div className='add-product__stock-item'>
-                        {product.sub_detail.map((prdct, index) =>
+                        {product.subDetail.map((prdct, index) =>
                             currentPrdct === prdct.id ? (
                                 <div key={prdct.id} className='add-product__stock-selectable'>
                                     <div className='add-product__stock-title-container'>

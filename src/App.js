@@ -23,39 +23,39 @@ import { getMsgYN } from "./util";
 
 class App extends React.Component {
     render() {
-        const { isLoggedIn } = this.props.userStatus;
+        const { isLoggedIn, isAdmin } = this.props.userStatus;
         const { snackbarStatus, openSnackbar } = this.props;
         return (
             <div className='App'>
                 <Header />
                 <div className='App__page'>
                     <Switch>
-                        <Route exact path='/' render={() => <Home />} />
+                        <Route exact path='/' render={() => (isLoggedIn ? <Home /> : <SignIn />)} />
                         <Route exact path={ROUTER_LINKS.signIn} render={() => (isLoggedIn ? <Redirect to='/' /> : <SignIn />)} />
                         <Route exact path={ROUTER_LINKS.signUp} render={() => (isLoggedIn ? <Redirect to='/' /> : <SignUp />)} />
                         <Route exact path={ROUTER_LINKS.basket} render={() => (isLoggedIn ? <Basket /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route
                             exact
                             path={ROUTER_LINKS.addProduct}
-                            render={() => (isLoggedIn ? <AddProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            render={() => (isLoggedIn & isAdmin ? <AddProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
-                        <Route exact path={ROUTER_LINKS.navigation} render={() => (isLoggedIn ? <Navigation /> : <Navigation />)} />
+                        <Route exact path={ROUTER_LINKS.navigation} render={() => (isLoggedIn ? <Navigation /> : <SignIn />)} />
                         <Route exact path={ROUTER_LINKS.search} render={() => (isLoggedIn ? <Search /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route exact path={ROUTER_LINKS.orders} render={() => (isLoggedIn ? <Orders /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route
                             exact
                             path={ROUTER_LINKS.deleteProduct}
-                            render={() => (isLoggedIn ? <DeleteProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            render={() => (isLoggedIn & isAdmin ? <DeleteProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                         <Route
                             exact
                             path={ROUTER_LINKS.addBanner}
-                            render={() => (isLoggedIn ? <AddBanner /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            render={() => (isLoggedIn & isAdmin ? <AddBanner /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                         <Route
                             exact
                             path={ROUTER_LINKS.addOnSale}
-                            render={() => (isLoggedIn ? <AddOnSale /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                            render={() => (isLoggedIn & isAdmin ? <AddOnSale /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                         <Route path={ROUTER_LINKS.item + ":id"} render={() => (isLoggedIn ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route

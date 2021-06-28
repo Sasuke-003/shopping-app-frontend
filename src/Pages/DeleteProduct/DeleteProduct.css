@@ -1,7 +1,7 @@
 .delete-product__input {
     height: 10vh;
     display: grid;
-    grid-template-columns: 1.5fr 0.5fr;
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     gap: 0px 0%;
     grid-auto-flow: row;
@@ -29,10 +29,12 @@
 
 .delete-product__helper-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-rows: 1fr; */
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+    grid-template-areas: ". .";
+    /* width: 33%; */
 }
 
 .delete-product__row {
@@ -42,6 +44,17 @@
     border: 1px solid var(--border);
     transition: 0.2s ease-in;
     height: 10vh;
+    position: relative;
+}
+
+.delete-product__btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-weight: 300;
+}
+.delete-product__btn:hover {
+    text-decoration: underline;
 }
 
 .delete-product__row:hover {
@@ -64,12 +77,12 @@
     cursor: pointer;
     font-weight: 500; 
 }*/
-.delete-product__button:hover {
+/* .delete-product__button:hover {
     cursor: pointer;
     padding: 7px;
     border: 5px solid var(--secondary);
     transition: 0.1s ease-in-out;
-}
+} */
 
 .delete-product__button-text {
     font-weight: 400;
