@@ -23,11 +23,11 @@ export const item = {
         return res;
     },
     autoComplete: async (itemName) => {
-        const res = await axios.get(url.autoComplete + itemName);
+        const res = await axios.get(url.autoComplete + itemName.toUpperCase());
         return res;
     },
     categoryAutoComplete: async (itemName) => {
-        const res = await axios.get(url.categoryAutoComplete + itemName);
+        const res = await axios.get(url.categoryAutoComplete + itemName.toUpperCase());
         return res;
     },
     delete: async (data) => {

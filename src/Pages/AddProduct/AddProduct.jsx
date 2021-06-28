@@ -142,7 +142,7 @@ class AddProduct extends Component {
     handleAutoComplete = async (event) => {
         const { name, value } = event.target;
         this.handleChange(event);
-
+        console.log(value);
         if (timerID) clearTimeout(timerID);
 
         timerID = setTimeout(async () => {
