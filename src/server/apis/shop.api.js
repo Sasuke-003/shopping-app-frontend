@@ -4,6 +4,7 @@ const url = {
     details: "/shop/details",
     applyOffer: "/shop/apply-offer",
     listOffer: "/shop/list-offer",
+    getBanner: "/shop/banner",
 };
 
 export const shop = {
@@ -13,6 +14,10 @@ export const shop = {
 
     applyOffer: async (data) => {
         const res = await axios.post(url.applyOffer, data);
+        return res;
+    },
+    getBanner: async () => {
+        const res = await axios.get(url.getBanner);
         return res;
     },
     listOffer: async () => {
