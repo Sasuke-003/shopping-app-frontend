@@ -9,34 +9,46 @@ function AddOnSale() {
     const [productData, setProductData] = useState([]);
     const [autoCompleteData, setAutoCompleteData] = useState([]);
 
-    useEffect(() => {
-        const getAutoCompleteData = async () => {
-            try {
-                const res = await api.item.autoComplete(searchString);
-                setAutoCompleteData(res);
-            } catch (e) {}
-        };
-        getAutoCompleteData();
-    }, [searchString]);
+    // useEffect(() => {
+    //     const getAutoCompleteData = async () => {
+    //         try {
+    //             const res = await api.item.autoComplete(searchString);
+    //             setAutoCompleteData(res);
+    //         } catch (e) {}
+    //     };
+    //     getAutoCompleteData();
+    // }, [searchString]);
+
+    const getData = async () => {
+        try {
+            const res = await api.shop.listOffer();
+            setProductData(res);
+        } catch (e) {
+            getPopup("error", e?.response?.data?.info);
+        }
+    };
 
     useEffect(() => {
-        const getData = async () => {
-            try {
-                const res = await api.shop.listOffer();
-                setProductData(res);
-            } catch (e) {
-                getPopup("error", e?.response?.data?.info);
-            }
-        };
         getData();
     }, []);
 
+    const SetSearchString = async (e) => {
+        setSearchString(e.target.value);
+        try {
+            const res = await api.item.autoComplete(e.target.value);
+            setAutoCompleteData(res);
+        } catch (e) {}
+    };
+
     const handleDeleteProductOnSale = async (id) => {
-        let data = productData.filter((prdct) => prdct.id !== id);
+        let data = [...productData];
+        data = data.filter((prdct) => prdct.itemID === id);
+        console.log(data);
         try {
             await api.shop.applyOffer(data);
             getPopup("success", "Successfully removed product from sale");
-            window.location.reload();
+            getData();
+            // window.location.reload();
         } catch (e) {
             getPopup("error", e?.response?.data?.info);
         }
@@ -83,7 +95,7 @@ function AddOnSale() {
                         className='add-on-sale__add-on-sale-box'
                         type='text'
                         value={searchString}
-                        onChange={(e) => setSearchString(e.target.value)}
+                        onChange={(e) => SetSearchString(e)}
                         placeholder='type something....'
                         list='sale-auto-complete'
                     />

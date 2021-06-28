@@ -39,9 +39,12 @@ axios.interceptors.response.use(
                 case "InvalidToken": // Falls Through
                 case "TokenExpired":
                     // If There is any token error while refreshing token then sign-out immediately
-                    if (err.config.url === "/tok/refresh") return token.clearToken();
+                    if (err.config.url === "/tok/refresh") {
+                        getPopup("error", err.response.data.info);
+                        return token.clearToken();
+                    }
                     // Otherwise Obtain refresh token and retry failed request
-                    getPopup("error", "token expired");
+
                     return token.getNewTokenAndRetry(failedRequest);
                 default:
                     getPopup("error", err.response.data.info);
