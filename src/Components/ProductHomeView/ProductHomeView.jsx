@@ -103,7 +103,7 @@ class ProductHomeView extends Component {
                         <span className='product-home-view__name'>{product.name}</span>
                         <img className='product-home-view__image' src={product.imageUrl} alt='cannot load' />
                         <div className='product-home-view__image-hover'>
-                            <div className='product-home-view__btn' onClick={() => history.push(ROUTER_LINKS.item + product.name)}>
+                            <div className='product-home-view__btn' onClick={() => history.push(ROUTER_LINKS.item + "60daedf80f940227e8cdbc4d")}>
                                 VIEW PRODUCT
                             </div>
                         </div>

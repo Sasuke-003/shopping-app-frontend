@@ -1,5 +1,6 @@
 .search-result__filter {
-    height: 30vh;
+    /* height: 30vh; */
+    height: 20vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

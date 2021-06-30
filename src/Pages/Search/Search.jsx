@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { ROUTER_LINKS } from "../../Router";
+import { api } from "../../server";
 import "./Search.css";
 
 function Search({ history }) {
     const [searchString, setSearchString] = useState("");
-    const [searchHelper, setSearchHelper] = useState();
+    const [searchHelper, setSearchHelper] = useState([]);
 
     useEffect(() => {
-        // getData = async () => {
-        // }
-    }, []);
+        const getData = async () => {
+            try {
+                const res = await api.item.autoComplete(searchString);
+                setSearchHelper(res);
+            } catch (e) {}
+        };
+        if (searchString === "") return;
+        getData();
+    }, [searchString]);
 
     return (
         <div className='search'>
@@ -27,6 +34,8 @@ function Search({ history }) {
                 </div>
             </div>
             <div className='search__helper-container'>
+                {/* searchHelper.length > 1 && */}
+                {/* searchHelper[0].name !== searchString && */}
                 {searchHelper.map((helpText, index) => (
                     <div className='search__row' onClick={() => setSearchString(helpText.name)}>
                         <h1 className='search__helper-text'>{helpText.name}</h1>

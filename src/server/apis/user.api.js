@@ -3,8 +3,7 @@ import axios from "axios";
 const url = {
     signUp: "/user/sign-up/shop",
     signIn: "/user/sign-in",
-    verifyEmail: "/user/verify-email",
-    checkOut: "/user/vip-checkout",
+    basket: "/user/cart",
 };
 
 export const user = {
@@ -17,12 +16,12 @@ export const user = {
         axios.defaults.headers.common["Authorization"] = `Bearer ${res.accTok}`;
         return res;
     },
-    verifyEmail: async (verifyEmailData) => {
-        const res = await axios.post(url.verifyEmail, verifyEmailData);
+    addToBasket: async (data) => {
+        const res = await axios.post(url.basket, data);
         return res;
     },
-    checkOut: async (checkOutData) => {
-        const res = await axios.post(url.checkOut, checkOutData);
+    getBasket: async () => {
+        const res = await axios.get(url.basket);
         return res;
     },
 };

@@ -5,6 +5,7 @@ const url = {
     addImage: "/item/add-image",
     detail: "/item/detail?itemID=",
     autoComplete: "/item/item-autoComplete?itemName=",
+    search: "/item/search?itemName=",
     categoryAutoComplete: "/item/category-autoComplete?category=",
     delete: "/item/delete",
 };
@@ -24,6 +25,10 @@ export const item = {
     },
     autoComplete: async (itemName) => {
         const res = await axios.get(url.autoComplete + itemName.toUpperCase());
+        return res;
+    },
+    search: async (itemName) => {
+        const res = await axios.get(url.search + itemName.toUpperCase());
         return res;
     },
     categoryAutoComplete: async (itemName) => {
