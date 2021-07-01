@@ -25,6 +25,7 @@ function SignIn({ history, setCurrentUserStatus }) {
                 pass,
             };
             await api.user.signIn(Data);
+            localStorage.setItem("email", email);
             setCurrentUserStatus(["isLoggedIn", true]);
         } catch (e) {
             getPopup("error", e?.response?.data?.info);

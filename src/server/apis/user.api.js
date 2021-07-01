@@ -4,6 +4,7 @@ const url = {
     signUp: "/user/sign-up/shop",
     signIn: "/user/sign-in",
     basket: "/user/cart",
+    checkout: "/user/checkout",
 };
 
 export const user = {
@@ -22,6 +23,10 @@ export const user = {
     },
     getBasket: async () => {
         const res = await axios.get(url.basket);
+        return res;
+    },
+    checkOut: async (checkOutData) => {
+        const res = await axios.post(url.checkOut, checkOutData);
         return res;
     },
 };

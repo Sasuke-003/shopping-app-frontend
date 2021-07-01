@@ -13,4 +13,5 @@ export const ROUTER_LINKS = {
     deleteProduct: "/deleteProduct",
     addBanner: "/addBanner",
     addOnSale: "/addOnSale",
+    checkout: "/checkout",
 };

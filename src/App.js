@@ -16,6 +16,7 @@ import SearchResult from "./Pages/SearchResult/SearchResult";
 import AddBanner from "./Pages/AddBanner/AddBanner";
 import DeleteProduct from "./Pages/DeleteProduct/DeleteProduct";
 import AddOnSale from "./Pages/AddOnSale/AddOnSale";
+import Checkout from "./Pages/Checkout/Checkout";
 import { ROUTER_LINKS } from "./Router";
 import { throwMsg } from "./util";
 import { openSnackbar } from "./redux/snackbar/snackbar.actions";
@@ -56,6 +57,11 @@ class App extends React.Component {
                             exact
                             path={ROUTER_LINKS.addOnSale}
                             render={() => (isLoggedIn & isAdmin ? <AddOnSale /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.checkout}
+                            render={() => (isLoggedIn ? <Checkout /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
                         <Route path={ROUTER_LINKS.item + ":id"} render={() => (isLoggedIn ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route

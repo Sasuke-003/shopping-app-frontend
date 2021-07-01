@@ -42,7 +42,8 @@ function AddOnSale() {
 
     const handleDeleteProductOnSale = async (id) => {
         let data = [...productData];
-        data = data.filter((prdct) => prdct.itemID === id);
+        console.log(id);
+        data = data.filter((prdct) => prdct.itemID !== id);
         console.log(data);
         try {
             await api.shop.applyOffer(data);
@@ -127,7 +128,7 @@ function AddOnSale() {
                 <div className='add-on-sale__product-list-item add-on-sale__product-heading'>ACTION</div>
             </div>
             {productData.map((product) => (
-                <div className='add-on-sale__product-list'>
+                <div className='add-on-sale__product-list' key={product.itemID}>
                     <div className='add-on-sale__product-list-item'>{product.name}</div>
                     <div className='add-on-sale__product-list-item'>{product.price}</div>
                     <div className='add-on-sale__product-list-item'>{product.offer}</div>

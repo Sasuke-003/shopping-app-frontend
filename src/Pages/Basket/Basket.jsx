@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 import "./Basket.css";
 import { api } from "../../server";
+import { ROUTER_LINKS } from "../../Router";
 import { openMyPopup, SERVER_URL, getPopup } from "../../util";
 
 class Basket extends Component {
@@ -27,9 +29,10 @@ class Basket extends Component {
                             selectable.push(key + " : " + element.selectable[key]);
                         });
                         // totalPrice += ((element.price * (100 - data.offer))/100;
-                        totalPrice += element.price * data.qty;
+                        let discountPrice = (element.price * (100 - data?.offer)) / 100;
+                        totalPrice += discountPrice * data.qty;
                         totalItems += data.qty;
-                        data["price"] = element.price;
+                        data["price"] = discountPrice;
                         data["selectable"] = selectable;
                     }
                 });
@@ -104,8 +107,10 @@ class Basket extends Component {
     componentDidMount() {
         this.getData();
     }
+
     render() {
         const { items, totalPrice, totalItems } = this.state;
+        const { history } = this.props;
         return items.length === 0 ? (
             <div className='basket__no-items'>
                 <SentimentDissatisfiedIcon style={{ marginRight: "15px", fontSize: "70px" }} />
@@ -113,7 +118,7 @@ class Basket extends Component {
             </div>
         ) : (
             <div className='basket'>
-                <div className='basket__place-order-btn'>
+                <div className='basket__place-order-btn' onClick={() => history.push(ROUTER_LINKS.checkout)}>
                     PLACE ORDER
                     <br />
                     <span>
@@ -166,4 +171,5 @@ class Basket extends Component {
         );
     }
 }
-export default Basket;
+
+export default withRouter(Basket);

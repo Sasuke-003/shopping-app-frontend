@@ -44,7 +44,7 @@ function getSteps(step) {
     return ["Order Received", "Order Dispatched", "Out For Delivery", "Delivered"];
 }
 
-export default function OrderStepper({ step = 4 }) {
+export default function OrderStepper({ step = 1 }) {
     const classes = useStyles();
 
     const steps = getSteps(step);

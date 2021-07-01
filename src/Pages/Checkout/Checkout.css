@@ -1,0 +1,41 @@
+.checkout {
+}
+
+.checkout__left {
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout__btn {
+    background: var(--primary) !important;
+    box-shadow: none !important;
+}
+
+.checkout__btn span {
+    margin-left: 50px !important;
+    width: 400px !important;
+    height: 100px !important;
+    border: 2px solid var(--secondary) !important;
+    font-family: "Roboto" !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    background-color: var(--primary) !important;
+    background-image: none !important;
+    color: var(--secondary) !important;
+    border-radius: 0px !important;
+    transition: 0.2s ease-in-out !important;
+}
+
+.checkout__btn span:hover {
+    border: 10px solid var(--secondary) !important;
+    transition: 0.2s ease-in-out !important;
+}
+
+.Modal-animationWrapper {
+    width: 50% !important;
+}
