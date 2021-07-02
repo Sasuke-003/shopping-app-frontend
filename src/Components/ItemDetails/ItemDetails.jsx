@@ -29,15 +29,17 @@ class ItemDetails extends Component {
         const units = [];
         const details = [];
         for (let i = 0; i < data.length; i++) {
-            Object.keys(data[i].selectable).forEach((item) => {
-                if (!(item in newData)) newData[item] = [];
-                if (newData[item].indexOf(data[i].selectable[item]) === -1) newData[item].push(data[i].selectable[item]);
-                if (units.indexOf(item) === -1) units.push(item);
-            });
-            if (i === 0) {
+            data[i]?.selectable !== undefined &&
                 Object.keys(data[i].selectable).forEach((item) => {
-                    selected[item] = data[i].selectable[item];
+                    if (!(item in newData)) newData[item] = [];
+                    if (newData[item].indexOf(data[i].selectable[item]) === -1) newData[item].push(data[i].selectable[item]);
+                    if (units.indexOf(item) === -1) units.push(item);
                 });
+            if (i === 0) {
+                data[i].selectable !== undefined &&
+                    Object.keys(data[i].selectable).forEach((item) => {
+                        selected[item] = data[i].selectable[item];
+                    });
                 selected["price"] = data[i].price;
                 selected["stock"] = data[i].stock;
                 selected["subID"] = data[i]._id;
@@ -155,26 +157,28 @@ class ItemDetails extends Component {
                     <h4 className='item-details__tax'>INCLUSIVE OF ALL TAXES</h4>
                     <h1 className='item-details__stock'>{selected.stock > 0 ? "IN STOCK" : "THIS PRODUCT IS CURRENTLY OUT OF STOCK"}</h1>
                 </div>
-                <div className='item-details__selectable'>
-                    {units.map((unit, index) => (
-                        <div key={unit + index} className='item-details__selectable-unit'>
-                            {" "}
-                            <h1 className='item-details__unit-name'>{unit}</h1>
-                            <div className='item-details__selectable-unit-value-container'>
-                                {selectable[unit].map((unitValue) => (
-                                    <div
-                                        key={unitValue + index}
-                                        className={`item-details__selectable-unit-value ${
-                                            selected[unit] === unitValue ? "item-details__selectable-unit-value-active" : ""
-                                        }`}
-                                        onClick={() => this.handleUnitChange(unit, unitValue)}>
-                                        {unitValue}
-                                    </div>
-                                ))}
+                {units.length > 0 ? (
+                    <div className='item-details__selectable'>
+                        {units.map((unit, index) => (
+                            <div key={unit + index} className='item-details__selectable-unit'>
+                                {" "}
+                                <h1 className='item-details__unit-name'>{unit}</h1>
+                                <div className='item-details__selectable-unit-value-container'>
+                                    {selectable[unit].map((unitValue) => (
+                                        <div
+                                            key={unitValue + index}
+                                            className={`item-details__selectable-unit-value ${
+                                                selected[unit] === unitValue ? "item-details__selectable-unit-value-active" : ""
+                                            }`}
+                                            onClick={() => this.handleUnitChange(unit, unitValue)}>
+                                            {unitValue}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                ) : null}
                 <div className='item-details__description'>
                     <h1 className='item-details__unit-name'>PRODUCT DESCRIPTION</h1>
                     <p>{item.description}</p>

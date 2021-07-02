@@ -23,9 +23,38 @@ import { openSnackbar } from "./redux/snackbar/snackbar.actions";
 import { getMsgYN } from "./util";
 
 class App extends React.Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         primary: "#f1faee",
+    //         secondary: "#1d3557",
+    //         border: "#457b9d",
+    //         borderSecondary: "#a8dadc",
+    //     };
+    // }
+    componentDidMount() {
+        const color1 = {
+            primary: "#f1faee",
+            secondary: "#1d3557",
+            border: "#457b9d",
+            borderSecondary: "#a8dadc",
+        };
+        const color2 = {
+            primary: "#edf2f4",
+            secondary: "#2b2d42",
+            border: "#d90429",
+            borderSecondary: "#ef233c",
+        };
+        const { primary, secondary, border, borderSecondary } = color1;
+        document.documentElement.style.setProperty("--primary", primary);
+        document.documentElement.style.setProperty("--secondary", secondary);
+        document.documentElement.style.setProperty("--border", border);
+        document.documentElement.style.setProperty("--borderSecondary", borderSecondary);
+    }
     render() {
         const { isLoggedIn, isAdmin } = this.props.userStatus;
         const { snackbarStatus, openSnackbar } = this.props;
+
         return (
             <div className='App'>
                 <Header />

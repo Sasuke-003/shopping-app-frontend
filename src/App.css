@@ -5,3 +5,17 @@
 .MuiAlert-root {
     border-radius: 0px !important;
 }
+
+html {
+    --primary: #000000;
+    --secondary: #ffffff;
+    --border: #252420;
+    --borderSecondary: #707070;
+}
+
+/* html {
+    --primary: #ffffff;
+    --secondary: #000000;
+    --border: #eae8e4;
+    --borderSecondary: #707070;
+} */

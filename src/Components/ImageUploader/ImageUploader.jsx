@@ -42,11 +42,11 @@ function ImageUploader({ product }) {
             return;
         }
         if (product.category === "") {
-            getPopup("error", "Name cannot be empty");
+            getPopup("error", "Category cannot be empty");
             return;
         }
         if (product.description === "") {
-            getPopup("error", "Name cannot be empty");
+            getPopup("error", "Description cannot be empty");
             return;
         }
         product.subDetail.forEach((prdct) => {
@@ -72,7 +72,7 @@ function ImageUploader({ product }) {
             await api.item.addDetail(product);
             uploadImage();
             getPopup("success", "successfully added " + product.name);
-            window.location.reload();
+            // window.location.reload();
         } catch (e) {
             getPopup("error", e?.response?.data?.info);
         }
