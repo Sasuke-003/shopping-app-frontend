@@ -54,9 +54,10 @@ class Orders extends Component {
             datas.forEach((data) => {
                 if (data.orderID === orderID) data["status"] = 0;
             });
-            this.state({ items: datas });
+            this.setState({ items: datas });
             getPopup("success", "Successfully canceled your order");
         } catch (e) {
+            // console.log(e);
             getPopup("error", e?.response?.data?.info);
         }
     };
@@ -68,10 +69,11 @@ class Orders extends Component {
             datas.forEach((data) => {
                 if (data.orderID === orderID) data["userRating"] = rate;
             });
-            this.state({ items: datas });
-            getPopup("success", "Successfully canceled your order");
+            this.setState({ items: datas });
+            getPopup("success", "Thank you for yor rating");
         } catch (e) {
             getPopup("error", e?.response?.data?.info);
+            // console.log(e);
         }
     };
 
@@ -97,10 +99,13 @@ class Orders extends Component {
                             <div className='orders__item-detail-container'>
                                 <div className='orders__item-name-container'>
                                     <h1 className='orders__item-name'>{item.name}</h1>
-                                    <div className='orders__item-rate-container'>
-                                        <Ratings orderID={item.orderID} rating={item.userRating} getRating={this.submitRating} />
-                                        <h6 className='orders__item-rate-text'>{item.userRating < 1 ? "RATE THIS PRODUCT" : "YOU RATED"}</h6>
-                                    </div>
+
+                                    {item.status > 3 && (
+                                        <div className='orders__item-rate-container'>
+                                            <Ratings orderID={item.orderID} rating={item.userRating} getRating={this.submitRating} />
+                                            <h6 className='orders__item-rate-text'>{item.userRating < 1 ? "RATE THIS PRODUCT" : "YOU RATED"}</h6>
+                                        </div>
+                                    )}
                                 </div>
                                 <h1 className='orders__item-price'>${item.price}</h1>
                                 {item.selectable.map((selectable) => (
@@ -111,9 +116,15 @@ class Orders extends Component {
                                 </div>
                             </div>
 
-                            <div className='orders__remove-btn' onClick={() => openMyPopup("hello", () => this.handleCancelOrder(item.orderID))}>
-                                CANCEL ORDER
-                            </div>
+                            {item.status > 0 && item.status < 4 && (
+                                <div
+                                    className='orders__remove-btn'
+                                    onClick={() =>
+                                        openMyPopup("Are you sure you want cancel this order?", () => this.handleCancelOrder(item.orderID))
+                                    }>
+                                    CANCEL ORDER
+                                </div>
+                            )}
                         </div>
                         <OrderStepper step={item.status} />
                     </div>

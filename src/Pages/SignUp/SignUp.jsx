@@ -38,6 +38,7 @@ function SignUp({ history }) {
                 pass,
             };
             await api.user.signUp(Data);
+            getPopup("success", "signed up successfully");
         } catch (e) {
             getPopup("error", e?.response?.data?.info);
         }

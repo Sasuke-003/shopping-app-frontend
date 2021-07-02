@@ -13,11 +13,14 @@ function Checkout({ history }) {
 
     const handleToken = async (token) => {
         try {
-            await api.order.create(token);
+            console.log(token);
+            await api.order.create({ stripeToken: token });
             getPopup("success", "Payment Successful");
+            await api.user.addToBasket([]);
             history.push(ROUTER_LINKS.orders);
         } catch (e) {
             getPopup("error", e?.response?.data?.info);
+            console.log(e);
         }
     };
     const getData = async (data) => {
@@ -44,7 +47,7 @@ function Checkout({ history }) {
     };
     useEffect(() => {
         getData();
-    });
+    }, []);
     return (
         <div className='checkout'>
             <h1 className='orders__title'>CHECKOUT</h1>
