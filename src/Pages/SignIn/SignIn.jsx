@@ -26,6 +26,7 @@ function SignIn({ history, setCurrentUserStatus }) {
             };
             await api.user.signIn(Data);
             localStorage.setItem("email", email);
+            alert(process.env.REACT_APP_ID);
             setCurrentUserStatus(["isLoggedIn", true]);
         } catch (e) {
             getPopup("error", e?.response?.data?.info);

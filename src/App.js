@@ -45,7 +45,13 @@ class App extends React.Component {
             border: "#d90429",
             borderSecondary: "#ef233c",
         };
-        const { primary, secondary, border, borderSecondary } = color1;
+        const color3 = {
+            primary: "#f2f2f2",
+            secondary: "#040506",
+            border: "#7c7c7c",
+            borderSecondary: "#7c7c7c",
+        };
+        const { primary, secondary, border, borderSecondary } = color3;
         document.documentElement.style.setProperty("--primary", primary);
         document.documentElement.style.setProperty("--secondary", secondary);
         document.documentElement.style.setProperty("--border", border);

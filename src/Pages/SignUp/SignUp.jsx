@@ -9,6 +9,7 @@ function SignUp({ history }) {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [rPass, setRPass] = useState("");
+    const [phone, setPhone] = useState("");
 
     const handleSubmit = async () => {
         if (name === "" || pass === "" || rPass === "") {
@@ -21,6 +22,10 @@ function SignUp({ history }) {
         }
         if (!validateEmail(email)) {
             getPopup("error", "ENTER VALID EMAIL ID");
+            return;
+        }
+        if (phone.length !== 10) {
+            getPopup("error", "PHONE NUMBER MUST BE 10 NUMBERS");
             return;
         }
         if (pass.length < 8 || pass.length > 16) {
@@ -36,9 +41,11 @@ function SignUp({ history }) {
                 name,
                 email,
                 pass,
+                phone,
             };
             await api.user.signUp(Data);
             getPopup("success", "signed up successfully");
+            window.location.reload();
         } catch (e) {
             getPopup("error", e?.response?.data?.info);
         }
@@ -55,6 +62,16 @@ function SignUp({ history }) {
                         type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        placeholder='type something....'
+                    />
+                </div>
+                <div className='sign-up__name'>
+                    <h3>Phone</h3>{" "}
+                    <input
+                        className='sign-up__input-box'
+                        type='number'
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         placeholder='type something....'
                     />
                 </div>

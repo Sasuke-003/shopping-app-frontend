@@ -14,7 +14,7 @@ function Ratings({ rating = 0, getRating, orderID }) {
             {[...Array(5 - rating)].map((elementInArray, index) => (
                 <GradeSharpIcon
                     key={index + "orders" + index + elementInArray}
-                    style={{ marginLeft: "5px", fontSize: "40px", fill: "var(--border)" }}
+                    style={{ marginLeft: "5px", fontSize: "40px", fill: "var(--borderSecondary)" }}
                 />
             ))}
         </div>
@@ -26,7 +26,7 @@ function Ratings({ rating = 0, getRating, orderID }) {
                     onMouseLeave={() => setCurrentStar(-1)}
                     onClick={() => getRating(index + 1, orderID)}
                     key={index + "orders" + index + elementInArray}
-                    style={{ marginLeft: "5px", fontSize: "40px", fill: `${currentStar < index ? "var(--border)" : "var(--secondary)"}` }}
+                    style={{ marginLeft: "5px", fontSize: "40px", fill: `${currentStar < index ? "var(--borderSecondary)" : "var(--secondary)"}` }}
                 />
             ))}
         </div>
