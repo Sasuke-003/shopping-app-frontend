@@ -5,6 +5,8 @@ const url = {
     applyOffer: "/shop/apply-offer",
     listOffer: "/shop/list-offer",
     getBanner: "/shop/banner",
+    popular: "/shop/popular",
+    recommended: "/shop/recommended",
 };
 
 export const shop = {
@@ -22,6 +24,10 @@ export const shop = {
     },
     listOffer: async () => {
         const res = await axios.get(url.listOffer);
+        return res;
+    },
+    popular: async () => {
+        const res = await axios.get(url.popular);
         return res;
     },
 };

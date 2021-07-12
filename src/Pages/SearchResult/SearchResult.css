@@ -87,3 +87,11 @@
     text-decoration: line-through;
     margin-right: 15px;
 }
+
+.search-result__isSearching {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}

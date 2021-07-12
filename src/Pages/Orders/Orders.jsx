@@ -7,6 +7,7 @@ import { openMyPopup, getPopup, SERVER_URL } from "../../util";
 import { api } from "../../server";
 import { connect } from "react-redux";
 import "./Orders.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class Orders extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class Orders extends Component {
             items: [],
             totalPrice: 0,
             totalItems: 0,
+            isStarted: false,
         };
     }
     getData = async () => {
@@ -41,9 +43,10 @@ class Orders extends Component {
                 data["img"] = data.itemObj.img[0];
                 data["name"] = data.itemObj.name;
             });
-            this.setState({ items: datas, totalPrice: totalPrice, totalItems: totalItems });
+            this.setState({ items: datas, totalPrice: totalPrice, totalItems: totalItems, isStarted: true });
         } catch (e) {
             console.log(e);
+            this.setState({ isStarted: true });
         }
     };
 
@@ -81,9 +84,13 @@ class Orders extends Component {
         this.getData();
     }
     render() {
-        const { totalItems, totalPrice, open, items } = this.state;
+        const { totalItems, totalPrice, open, items, isStarted } = this.state;
         // const { snackbarStatus } = this.props;
-        return totalItems === 0 ? (
+        return !isStarted ? (
+            <div className='search-result__isSearching'>
+                <CircularProgress size='45px' />
+            </div>
+        ) : totalItems === 0 ? (
             <div className='orders__no-items'>
                 <SentimentDissatisfiedIcon style={{ marginRight: "15px", fontSize: "70px" }} />
                 <h1 className='orders__title-no-items'>MY ORDERS</h1>

@@ -5,12 +5,14 @@ import { api } from "../../server";
 import { getPopup, SERVER_URL } from "../../util";
 import { ROUTER_LINKS } from "../../Router";
 import "./SearchResult.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class SearchResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
             products: [],
+            isStarted: false,
         };
     }
 
@@ -41,9 +43,11 @@ class SearchResult extends Component {
             });
             this.setState({
                 products: data,
+                isStarted: true,
             });
         } catch (e) {
             console.log(e);
+            this.setState({ isStarted: false });
         }
     };
 
@@ -52,8 +56,13 @@ class SearchResult extends Component {
     }
     render() {
         const { match, history } = this.props;
-        const { products } = this.state;
-        return (
+        const { products, isStarted } = this.state;
+        return !isStarted ? (
+            <div className='search-result__isSearching'>
+                {" "}
+                <CircularProgress size='45px' />
+            </div>
+        ) : (
             <div className='search-result'>
                 <div className='search-result__filter'>
                     {/* <div className='search-result__filter-button'>
@@ -63,6 +72,7 @@ class SearchResult extends Component {
                         {products?.itemList?.length} results for {match.params.id}
                     </h1>
                 </div>
+
                 <div className='search-result__products'>
                     {products?.itemList?.map((product, index) => (
                         <div
@@ -85,6 +95,7 @@ class SearchResult extends Component {
                         </div>
                     ))}
                 </div>
+
                 {/* <div className='search-result__filter'>
                     <div className='search-result__filter-button  search-result__show-more-button' onClick={this.handleShowMore}>
                         <h1 className='search-result__filter-button-text'>SHOW MORE</h1>

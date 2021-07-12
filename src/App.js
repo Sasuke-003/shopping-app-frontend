@@ -66,7 +66,7 @@ class App extends React.Component {
                 <Header />
                 <div className='App__page'>
                     <Switch>
-                        <Route exact path='/' render={() => (isLoggedIn ? <Home /> : <SignIn />)} />
+                        <Route exact path='/' render={() => (isLoggedIn ? <Home /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route exact path={ROUTER_LINKS.signIn} render={() => (isLoggedIn ? <Redirect to='/' /> : <SignIn />)} />
                         <Route exact path={ROUTER_LINKS.signUp} render={() => (isLoggedIn ? <Redirect to='/' /> : <SignUp />)} />
                         <Route exact path={ROUTER_LINKS.basket} render={() => (isLoggedIn ? <Basket /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
@@ -75,7 +75,11 @@ class App extends React.Component {
                             path={ROUTER_LINKS.addProduct}
                             render={() => (isLoggedIn & isAdmin ? <AddProduct /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
-                        <Route exact path={ROUTER_LINKS.navigation} render={() => (isLoggedIn ? <Navigation /> : <SignIn />)} />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.navigation}
+                            render={() => (isLoggedIn ? <Navigation /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
                         <Route exact path={ROUTER_LINKS.search} render={() => (isLoggedIn ? <Search /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route exact path={ROUTER_LINKS.orders} render={() => (isLoggedIn ? <Orders /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
                         <Route

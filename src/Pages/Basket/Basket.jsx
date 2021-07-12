@@ -5,7 +5,7 @@ import "./Basket.css";
 import { api } from "../../server";
 import { ROUTER_LINKS } from "../../Router";
 import { openMyPopup, SERVER_URL, getPopup } from "../../util";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 class Basket extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +13,7 @@ class Basket extends Component {
             items: [],
             totalPrice: 0,
             totalItems: 0,
+            isStarted: false,
         };
     }
     getData = async () => {
@@ -39,9 +40,10 @@ class Basket extends Component {
                 data["img"] = data.itemObj.img[0];
                 data["name"] = data.itemObj.name;
             });
-            this.setState({ items: datas, totalPrice: totalPrice, totalItems: totalItems });
+            this.setState({ items: datas, totalPrice: totalPrice, totalItems: totalItems, isStarted: true });
         } catch (e) {
             console.log(e);
+            this.setState({ isStarted: true });
         }
     };
 
@@ -109,9 +111,13 @@ class Basket extends Component {
     }
 
     render() {
-        const { items, totalPrice, totalItems } = this.state;
+        const { items, totalPrice, totalItems, isStarted } = this.state;
         const { history } = this.props;
-        return items.length === 0 ? (
+        return !isStarted ? (
+            <div className='search-result__isSearching'>
+                <CircularProgress size='45px' />
+            </div>
+        ) : items.length === 0 ? (
             <div className='basket__no-items'>
                 <SentimentDissatisfiedIcon style={{ marginRight: "15px", fontSize: "70px" }} />
                 <h1 className='basket__title-no-items'>Your Basket is empty</h1>

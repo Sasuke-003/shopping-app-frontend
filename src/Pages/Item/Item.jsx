@@ -6,12 +6,13 @@ import { withRouter } from "react-router-dom";
 import { api } from "../../server";
 import axios from "axios";
 import "./Item.css";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 class Item extends Component {
     constructor(props) {
         super(props);
         this.state = {
             item: {},
+            isStarted: false,
         };
     }
 
@@ -21,6 +22,7 @@ class Item extends Component {
             const res = await api.item.detail(match.params.id);
             this.setState({
                 item: res,
+                isStarted: true,
             });
         } catch (e) {}
     };
@@ -31,8 +33,13 @@ class Item extends Component {
     }
 
     render() {
-        const { item } = this.state;
-        return (
+        const { item, isStarted } = this.state;
+        return !isStarted ? (
+            <div className='item__image-container'>
+                {" "}
+                <CircularProgress size='45px' />
+            </div>
+        ) : (
             <div className='item'>
                 <div className='item__image-container'>
                     {item?.img?.map((imgUrl, index) => (

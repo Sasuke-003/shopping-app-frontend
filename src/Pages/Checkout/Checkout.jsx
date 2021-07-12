@@ -5,11 +5,13 @@ import { api } from "../../server";
 import StripeCheckout from "react-stripe-checkout";
 import { withRouter } from "react-router-dom";
 import "./Checkout.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function Checkout({ history }) {
     const [address, setAddress] = useState("");
     const [totalItems, setTotalItems] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [isStarted, setIsStarted] = useState(false);
 
     const handleToken = async (token) => {
         try {
@@ -41,14 +43,20 @@ function Checkout({ history }) {
             });
             setTotalPrice(totalPrice);
             setTotalItems(totalItems);
+            setIsStarted(true);
         } catch (e) {
             console.log(e);
+            setIsStarted(true);
         }
     };
     useEffect(() => {
         getData();
     }, []);
-    return (
+    return !isStarted ? (
+        <div className='search-result__isSearching'>
+            <CircularProgress size='45px' />
+        </div>
+    ) : (
         <div className='checkout'>
             <h1 className='orders__title'>CHECKOUT</h1>
             <div className='checkout__left'>

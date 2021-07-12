@@ -1,85 +1,38 @@
 import React, { Component } from "react";
-import { HorizontalDragScrollEnable } from "../../util";
+import { HorizontalDragScrollEnable, SERVER_URL } from "../../util";
 import GradeSharpIcon from "@material-ui/icons/GradeSharp";
 import { ROUTER_LINKS } from "../../Router";
 import { withRouter } from "react-router-dom";
-
+import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "./ProductHomeView.css";
 
 class ProductHomeView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: [
-                {
-                    name: "WOODEN GROOT",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1609419658162-232e83ceb6e1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-                    price: 250,
-                    ratings: 5,
-                },
-
-                {
-                    name: "RAYMONDS",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1602810319250-a663f0af2f75?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-                    price: 250,
-                    ratings: 4,
-                },
-                {
-                    name: "SCULLERS DENIM",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1603202577997-003d15cfc20b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=738&q=80",
-                    price: 250,
-                    ratings: 5,
-                },
-                {
-                    name: "BEATS II",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1498049794561-7780e7231661?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                    price: 250,
-                    ratings: 4,
-                },
-                {
-                    name: "MILTON JAR",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1565620731358-e8c038abc8d1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=676&q=80",
-                    price: 250,
-                    ratings: 4,
-                },
-                {
-                    name: "WITCHER",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1513001900722-370f803f498d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-                    price: 250,
-                    ratings: 3,
-                },
-                {
-                    name: "PS5 CONTROLLER",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-                    price: 250,
-                    ratings: 5,
-                },
-                {
-                    name: "XBOX CONTROLLER",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1580327344181-c1163234e5a0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1047&q=80",
-                    price: 250,
-                    ratings: 4,
-                },
-                {
-                    name: "NIKE CASUALS",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80",
-                    price: 250,
-                    ratings: 2,
-                },
-            ],
+            products: [],
+            isStarted: false,
         };
     }
+    getData = async () => {
+        if (!this.props.url) return;
+        try {
+            const res = await axios.get(this.props.url);
+            let datas = [...res];
+            datas.forEach((data) => {
+                data["price"] = data.itemObj.subDetail[0].price;
+            });
+
+            this.setState({ products: datas, isStarted: true });
+        } catch (e) {
+            console.log(e);
+            this.setState({ isStarted: true });
+        }
+    };
 
     componentDidMount() {
+        this.getData();
         HorizontalDragScrollEnable(`drag-scroll-${this.props.classKey}`);
     }
 
@@ -94,25 +47,37 @@ class ProductHomeView extends Component {
     // };
 
     render() {
-        const { products } = this.state;
+        const { products, isStarted } = this.state;
         const { history } = this.props;
-        return (
+        return !isStarted ? (
+            <div className={`product-home-view drag-scroll-${this.props.classKey}`}>
+                <CircularProgress size='45px' />
+            </div>
+        ) : (
             <div className={`product-home-view drag-scroll-${this.props.classKey}`}>
                 {products.map((product, index) => (
-                    <div id={product + index} className='product-home-view__container'>
-                        <span className='product-home-view__name'>{product.name}</span>
-                        <img className='product-home-view__image' src={product.imageUrl} alt='cannot load' />
+                    <div key={product.itemObj.name + index} id={product + index} className='product-home-view__container'>
+                        <span className='product-home-view__name'>
+                            {product.itemObj.name.length > 23 ? product.itemObj.name.slice(0, 23) + "..." : product.itemObj.name}
+                        </span>
+                        <img
+                            className='product-home-view__image'
+                            id='product-home-view__image'
+                            src={SERVER_URL + "item/" + product.itemObj.img[0]}
+                            alt='Cannot load'
+                        />
                         <div className='product-home-view__image-hover'>
-                            <div className='product-home-view__btn' onClick={() => history.push(ROUTER_LINKS.item + "60daedf80f940227e8cdbc4d")}>
+                            <div className='product-home-view__btn' onClick={() => history.push(ROUTER_LINKS.item + product.itemID)}>
                                 VIEW PRODUCT
                             </div>
                         </div>
                         <div className='product-home-view__bottom'>
                             <span className='product-home-view__price'>
-                                <span className='product-home-view__price-strike'>${product.price + 100}</span>${product.price}
+                                {product.offer === 0 ? null : <span className='product-home-view__price-strike'>${product.price}</span>}$
+                                {(product.price * (100 - product.offer)) / 100}
                             </span>
                             <div className='product-home-view__ratings'>
-                                {[...Array(product.ratings)].map((elementInArray, index) => (
+                                {[...Array(product.rate)].map((elementInArray, index) => (
                                     <GradeSharpIcon key={product + index + elementInArray} style={{ marginLeft: "5px", fontSize: "23px" }} />
                                 ))}
                             </div>

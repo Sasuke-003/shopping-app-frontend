@@ -3,6 +3,11 @@ import { withRouter } from "react-router-dom";
 import { ROUTER_LINKS } from "../../Router";
 import { api } from "../../server";
 import "./Search.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+let timerID;
+const timeOutValue = 1500;
+let s = new Set();
 
 function Search({ history }) {
     const [searchString, setSearchString] = useState("");
@@ -10,12 +15,17 @@ function Search({ history }) {
 
     useEffect(() => {
         const getData = async () => {
-            try {
-                const res = await api.item.autoComplete(searchString);
-                setSearchHelper(res);
-            } catch (e) {}
+            if (searchString === "") return;
+            if (timerID) clearTimeout(timerID);
+            timerID = setTimeout(async () => {
+                timerID = undefined;
+                try {
+                    const res = await api.item.autoComplete(searchString);
+                    setSearchHelper(res);
+                } catch (e) {}
+            }, timeOutValue);
         };
-        if (searchString === "") return;
+
         getData();
     }, [searchString]);
 
@@ -33,15 +43,22 @@ function Search({ history }) {
                     <h1 className='search__button-text'>SEARCH</h1>
                 </div>
             </div>
-            <div className='search__helper-container'>
-                {/* searchHelper.length > 1 && */}
-                {/* searchHelper[0].name !== searchString && */}
-                {searchHelper.map((helpText, index) => (
-                    <div className='search__row' onClick={() => setSearchString(helpText.name)}>
-                        <h1 className='search__helper-text'>{helpText.name}</h1>
-                    </div>
-                ))}
-            </div>
+            {searchHelper.length < 1 ? (
+                <div className='search-result__products'>
+                    {" "}
+                    <CircularProgress size='45px' />
+                </div>
+            ) : (
+                <div className='search__helper-container'>
+                    {/* searchHelper.length > 1 && */}
+                    {/* searchHelper[0].name !== searchString && */}
+                    {searchHelper.map((helpText, index) => (
+                        <div className='search__row' onClick={() => setSearchString(helpText.name)}>
+                            <h1 className='search__helper-text'>{helpText.name}</h1>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
