@@ -59,7 +59,6 @@ class ItemDetails extends Component {
     componentDidMount() {
         this.handleData();
     }
-
     handleUnitChange = (unit, value) => {
         const { selected, item } = this.state;
         let data = Object.assign({}, selected);

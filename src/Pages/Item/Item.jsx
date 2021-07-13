@@ -44,8 +44,7 @@ class Item extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.match.params.id !== this.props.match.params.id) {
-            this.getData();
-            console.log("sadasd");
+            window.location.reload();
         }
     }
 
