@@ -9,8 +9,10 @@
 }
 
 .product-home-view__container {
-    /* margin-right: 50px; */
+    margin-right: 50px;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-home-view__container:hover .product-home-view__image-hover {
@@ -31,12 +33,13 @@
 }
 
 .product-home-view__image-hover {
+    position: absolute;
     margin: 40px 0 10px 0;
     width: 475px;
     height: 600px;
     background: var(--secondary);
     z-index: 1;
-    position: absolute;
+    left: 0;
     top: 0;
     opacity: 50%;
     display: none;

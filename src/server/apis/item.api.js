@@ -8,6 +8,7 @@ const url = {
     search: "/item/search?itemName=",
     categoryAutoComplete: "/item/category-autoComplete?category=",
     delete: "/item/delete",
+    categoryList: "/item/category-list",
 };
 
 export const item = {
@@ -29,6 +30,10 @@ export const item = {
     },
     search: async (itemName) => {
         const res = await axios.get(url.search + itemName.toUpperCase());
+        return res;
+    },
+    categoryList: async () => {
+        const res = await axios.get(url.categoryList);
         return res;
     },
     categoryAutoComplete: async (itemName) => {

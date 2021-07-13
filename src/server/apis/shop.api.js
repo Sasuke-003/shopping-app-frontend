@@ -30,4 +30,8 @@ export const shop = {
         const res = await axios.get(url.popular);
         return res;
     },
+    recommended: async () => {
+        const res = await axios.get(url.recommended);
+        return res;
+    },
 };

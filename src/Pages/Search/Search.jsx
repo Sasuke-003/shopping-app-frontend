@@ -21,7 +21,10 @@ function Search({ history }) {
                 timerID = undefined;
                 try {
                     const res = await api.item.autoComplete(searchString);
-                    setSearchHelper(res);
+                    const res2 = await api.item.categoryAutoComplete(searchString);
+                    let data = [...res];
+                    res2.forEach((r) => data.push({ name: r }));
+                    setSearchHelper(data);
                 } catch (e) {}
             }, timeOutValue);
         };

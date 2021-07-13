@@ -72,7 +72,7 @@ function AddOnSale() {
             getPopup("error", "This item is currently unavailable!");
             return;
         }
-        let data = productData.filter((prdct) => prdct.name !== searchString);
+        let data = productData.filter((prdct) => prdct.itemID !== itemID);
         data.push({
             itemID,
             offer,
@@ -129,10 +129,10 @@ function AddOnSale() {
             </div>
             {productData.map((product) => (
                 <div className='add-on-sale__product-list' key={product.itemID}>
-                    <div className='add-on-sale__product-list-item'>{product.name}</div>
-                    <div className='add-on-sale__product-list-item'>{product.price}</div>
+                    <div className='add-on-sale__product-list-item'>{product?.itemObj?.name}</div>
+                    <div className='add-on-sale__product-list-item'>{product?.itemObj?.subDetail[0]?.price}</div>
                     <div className='add-on-sale__product-list-item'>{product.offer}</div>
-                    <div className='add-on-sale__product-list-item'>{(product.price * (100 - product.offer)) / 100}</div>
+                    <div className='add-on-sale__product-list-item'>{(product?.itemObj?.subDetail[0]?.price * (100 - product.offer)) / 100}</div>
                     <div
                         className='add-on-sale__product-list-item add-on-sale__delete-product'
                         onClick={() =>
