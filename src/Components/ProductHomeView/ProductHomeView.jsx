@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { HorizontalDragScrollEnable, SERVER_URL } from "../../util";
 import GradeSharpIcon from "@material-ui/icons/GradeSharp";
 import { ROUTER_LINKS } from "../../Router";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./ProductHomeView.css";
@@ -65,9 +65,9 @@ class ProductHomeView extends Component {
                                 alt='Cannot load'
                             />
                             <div className='product-home-view__image-hover'>
-                                <div className='product-home-view__btn' onClick={() => history.push(ROUTER_LINKS.item + product.itemID)}>
-                                    VIEW PRODUCT
-                                </div>
+                                <Link to={ROUTER_LINKS.item + product.itemID}>
+                                    <div className='product-home-view__btn'>VIEW PRODUCT</div>
+                                </Link>
                             </div>
                             <div className='product-home-view__bottom'>
                                 <span className='product-home-view__price'>

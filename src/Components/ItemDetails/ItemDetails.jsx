@@ -20,9 +20,11 @@ class ItemDetails extends Component {
     handleData = async () => {
         const { match } = this.props;
         let res = {};
+
         try {
             res = await api.item.detail(match.params.id);
         } catch (e) {}
+
         const data = [...res.subDetail];
         const newData = {};
         const selected = {};
@@ -143,10 +145,10 @@ class ItemDetails extends Component {
                         <h1 className='item-details__name'>{item.name}</h1>
                         <div className='item-details__ratings'>
                             <div>
-                                {[...Array(5 - item.rateSum)].map((elementInArray, index) => (
+                                {[...Array(5 - item.rate)].map((elementInArray, index) => (
                                     <StarBorderIcon key={item.name + index + elementInArray + 1} style={{ marginLeft: "5px", fontSize: "55px" }} />
                                 ))}
-                                {[...Array(item.rateSum)].map((elementInArray, index) => (
+                                {[...Array(item.rate)].map((elementInArray, index) => (
                                     <GradeSharpIcon key={item.name + index + elementInArray + 2} style={{ marginLeft: "5px", fontSize: "55px" }} />
                                 ))}
                             </div>

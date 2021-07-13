@@ -13,18 +13,28 @@ class Item extends Component {
         this.state = {
             item: {},
             isStarted: false,
+            similarData: [],
         };
     }
 
     getData = async () => {
         const { match } = this.props;
+        let smd = [];
+        let res = {};
         try {
-            const res = await api.item.detail(match.params.id);
-            this.setState({
-                item: res,
-                isStarted: true,
-            });
+            res = await api.item.detail(match.params.id);
         } catch (e) {}
+        try {
+            const res1 = await api.item.search(res.category);
+            smd = res1.itemList;
+        } catch (e) {
+            console.log(e);
+        }
+        this.setState({
+            item: res,
+            similarData: smd,
+            isStarted: true,
+        });
     };
 
     componentDidMount() {
@@ -32,8 +42,15 @@ class Item extends Component {
         HorizontalDragScrollEnable("item__image-container");
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.match.params.id !== this.props.match.params.id) {
+            this.getData();
+            console.log("sadasd");
+        }
+    }
+
     render() {
-        const { item, isStarted } = this.state;
+        const { item, isStarted, similarData } = this.state;
         return !isStarted ? (
             <div className='item__image-container'>
                 {" "}
@@ -48,7 +65,7 @@ class Item extends Component {
                 </div>
                 <ItemDetails />
                 <h1 className='product-home-view-title'>SIMILAR PRODUCTS</h1>
-                <ProductHomeView className='item__similar-items' />
+                <ProductHomeView className='item__similar-items' classKey='similar' isStarted={isStarted} products={similarData} />
             </div>
         );
     }

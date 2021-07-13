@@ -80,7 +80,7 @@ class Home extends Component {
                 ) : null}
                 {recommendedProducts.length > 0 ? (
                     <div>
-                        <h1 className='product-home-view-title'>PRODUCTS ON SALE</h1>
+                        <h1 className='product-home-view-title'>RECOMMENDED FOR YOU</h1>
                         <ProductHomeView key='recommended' classKey='recommended' products={recommendedProducts} isStarted={isRecommendedStarted} />
                     </div>
                 ) : null}

@@ -102,7 +102,11 @@ class App extends React.Component {
                             path={ROUTER_LINKS.checkout}
                             render={() => (isLoggedIn ? <Checkout /> : <Redirect to={ROUTER_LINKS.signIn} />)}
                         />
-                        <Route path={ROUTER_LINKS.item + ":id"} render={() => (isLoggedIn ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)} />
+                        <Route
+                            exact
+                            path={ROUTER_LINKS.item + ":id"}
+                            render={() => (isLoggedIn ? <Item /> : <Redirect to={ROUTER_LINKS.signIn} />)}
+                        />
                         <Route
                             path={ROUTER_LINKS.searchResult + ":id"}
                             render={() => (isLoggedIn ? <SearchResult /> : <Redirect to={ROUTER_LINKS.signIn} />)}

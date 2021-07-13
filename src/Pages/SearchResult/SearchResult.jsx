@@ -87,7 +87,7 @@ class SearchResult extends Component {
                                     {product.offer === 0 ? product.price : (product.price * (100 - product.offer)) / 100}
                                 </span>
                                 <div className='search-result__ratings'>
-                                    {[...Array(product.rating)].map((elementInArray, index) => (
+                                    {[...Array(product.rate)].map((elementInArray, index) => (
                                         <GradeSharpIcon key={product + index + elementInArray} style={{ marginLeft: "3px", fontSize: "15px" }} />
                                     ))}
                                 </div>
