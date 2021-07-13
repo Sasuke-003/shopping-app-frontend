@@ -35,7 +35,6 @@ class Home extends Component {
             res3 = await api.shop.recommended();
         } catch (e) {
             console.log(e);
-            this.setState({ isOnSaleStarted: true, isPopularStarted: true, isRecommendedStarted: true });
         }
         let datas1 = [...res1];
         datas1.forEach((data1) => {
