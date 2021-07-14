@@ -11,7 +11,8 @@ export const token = {
         const res = await axios.get(url.newToken);
         try {
             axios.defaults.headers.common["Authorization"] = res.accTok;
-            return await retryReq(reqToBeRetried);
+            localStorage.setItem("accTok", res.accTok);
+            if (reqToBeRetried) return await retryReq(reqToBeRetried);
         } catch (err) {
             throw res;
         }

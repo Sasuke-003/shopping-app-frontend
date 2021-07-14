@@ -7,7 +7,7 @@ const log = new Logger();
 
 axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.withCredentials = true;
-axios.defaults.headers.common["Authorization"] = "";
+axios.defaults.headers.common["Authorization"] = localStorage.getItem("accTok") || "";
 
 axios.interceptors.request.use(
     async (req) => {

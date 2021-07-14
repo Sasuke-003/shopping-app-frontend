@@ -16,6 +16,7 @@ export const user = {
         // const res = await axios.post(url.signIn + process.env.REACT_APP_SHOP_ID, signInData);
         const res = await axios.post(url.signIn, signInData);
         axios.defaults.headers.common["Authorization"] = `Bearer ${res.accTok}`;
+        localStorage.setItem("accTok", `Bearer ${res.accTok}`);
         return res;
     },
     addToBasket: async (data) => {

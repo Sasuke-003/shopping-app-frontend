@@ -108,12 +108,12 @@ class Home extends Component {
                         <ProductHomeView key='recommended' classKey='recommended' products={recommendedProducts} isStarted={isRecommendedStarted} />
                     </div>
                 ) : null}
-                {newArrival !== [] && newArrival?.length > 0 ? (
+                {/* {newArrival !== [] && newArrival?.length > 0 ? (
                     <div>
                         <h1 className='product-home-view-title'>RECOMMENDED FOR YOU</h1>
                         <ProductHomeView key='newArrival' classKey='newArrival' products={newArrival} isStarted={isNewArrivalsStarted} />
                     </div>
-                ) : null}
+                ) : null} */}
             </div>
         );
     }
