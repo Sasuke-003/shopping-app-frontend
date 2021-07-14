@@ -124,8 +124,8 @@ class AddProduct extends Component {
         if (subDetail.length > 9) return;
         let data = {
             id: Date.now(),
-            stock: 0,
-            price: 0,
+            stock: 100,
+            price: 500,
             selectable: {},
         };
         this.state.selectable.forEach((s) => {

@@ -3,7 +3,7 @@ import { UserStatusActionTypes } from "./userStatus.types";
 const INITIAL_STATE = {
     currentUserStatus: {
         isLoggedIn: false,
-        isAdmin: true,
+        isAdmin: false,
         tabStatus: 1,
     },
 };

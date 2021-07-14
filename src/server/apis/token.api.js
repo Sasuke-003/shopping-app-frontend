@@ -44,4 +44,5 @@ function clearAllData() {
     });
     setUserToken(null);
     setUserStatus("isLoggedIn", false);
+    setUserStatus("isAdmin", false);
 }

@@ -7,7 +7,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 let timerID;
 const timeOutValue = 1500;
-let s = new Set();
 
 function Search({ history }) {
     const [searchString, setSearchString] = useState("");

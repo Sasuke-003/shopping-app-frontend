@@ -24,9 +24,13 @@ function SignIn({ history, setCurrentUserStatus }) {
                 email,
                 pass,
             };
-            await api.user.signIn(Data);
+            const res = await api.user.signIn(Data);
             localStorage.setItem("email", email);
-            alert(process.env.REACT_APP_ID);
+            if (res.typ === "a") {
+                setCurrentUserStatus(["isAdmin", true]);
+            } else {
+                setCurrentUserStatus(["isAdmin", false]);
+            }
             setCurrentUserStatus(["isLoggedIn", true]);
         } catch (e) {
             getPopup("error", e?.response?.data?.info);

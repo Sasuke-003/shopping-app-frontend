@@ -1,15 +1,15 @@
 import axios from "axios";
 
 const url = {
-    signUp: "/user/sign-up/shop",
+    signUp: "/user/sign-up/",
     signIn: "/user/sign-in",
     basket: "/user/cart",
     checkout: "/user/checkout",
 };
 
 export const user = {
-    signUp: async (signUpData) => {
-        return await axios.post(url.signUp, signUpData);
+    signUp: async (signUpData, SHOP_ID) => {
+        return await axios.post(url.signUp + SHOP_ID, signUpData);
     },
 
     signIn: async (signInData) => {

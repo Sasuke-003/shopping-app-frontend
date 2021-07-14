@@ -36,6 +36,10 @@ function SignUp({ history }) {
             getPopup("error", "BOTH PASSWORDS MUST MATCH");
             return;
         }
+        if (process.env.REACT_APP_SHOP_ID === undefined) {
+            getPopup("error", "Something wrong with the website contact admin");
+            return;
+        }
         try {
             const Data = {
                 name,
@@ -43,7 +47,7 @@ function SignUp({ history }) {
                 pass,
                 phone,
             };
-            await api.user.signUp(Data);
+            await api.user.signUp(Data, process.env.REACT_APP_SHOP_ID);
             getPopup("success", "signed up successfully");
             window.location.reload();
         } catch (e) {
