@@ -201,7 +201,7 @@ class AddProduct extends Component {
                             />
                             <datalist id='category-auto-complete'>
                                 {categoryAutoComplete.map((option, index) => (
-                                    <option key={option.name + index} value={option.name} />
+                                    <option key={option + index} value={option} />
                                 ))}
                             </datalist>
                         </div>
