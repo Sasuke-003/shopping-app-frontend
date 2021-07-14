@@ -7,13 +7,13 @@ import SearchSharpIcon from "@material-ui/icons/SearchSharp";
 import ShoppingBasketSharpIcon from "@material-ui/icons/ShoppingBasketSharp";
 import ClearSharpIcon from "@material-ui/icons/ClearSharp";
 
-function Header({ history }) {
+function Header({ history, shopName }) {
     const [loc, setLoc] = useState("/");
 
     return (
         <div className='header'>
             <h1 className='header__title' onClick={() => history.push(ROUTER_LINKS.home)}>
-                MY SHOP
+                {shopName}
             </h1>
             <div className='header__menu-icon'>
                 <div

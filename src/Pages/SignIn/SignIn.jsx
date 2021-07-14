@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { getPopup, validateEmail } from "../../util";
+import { getPopup, validateEmail, setUserToken } from "../../util";
 import { connect } from "react-redux";
 import { setCurrentUserStatus } from "../../redux/userStatus/userStatus.actions";
 import { api } from "../../server";
@@ -32,6 +32,7 @@ function SignIn({ history, setCurrentUserStatus }) {
                 setCurrentUserStatus(["isAdmin", false]);
             }
             setCurrentUserStatus(["isLoggedIn", true]);
+            setUserToken(res.accTok);
         } catch (e) {
             getPopup("error", e?.response?.data?.info);
         }

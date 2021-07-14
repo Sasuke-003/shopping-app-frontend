@@ -20,50 +20,45 @@ import Checkout from "./Pages/Checkout/Checkout";
 import { ROUTER_LINKS } from "./Router";
 import { throwMsg } from "./util";
 import { openSnackbar } from "./redux/snackbar/snackbar.actions";
+import { api } from "./server";
 import { getMsgYN } from "./util";
 
 class App extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         primary: "#f1faee",
-    //         secondary: "#1d3557",
-    //         border: "#457b9d",
-    //         borderSecondary: "#a8dadc",
-    //     };
-    // }
-    componentDidMount() {
-        const color1 = {
-            primary: "#f1faee",
-            secondary: "#1d3557",
-            border: "#457b9d",
-            borderSecondary: "#a8dadc",
+    constructor(props) {
+        super(props);
+        this.state = {
+            shopName: "",
         };
-        const color2 = {
-            primary: "#edf2f4",
-            secondary: "#2b2d42",
-            border: "#d90429",
-            borderSecondary: "#ef233c",
-        };
-        const color3 = {
-            primary: "#f2f2f2",
-            secondary: "#040506",
-            border: "#7c7c7c",
-            borderSecondary: "#7c7c7c",
-        };
-        const { primary, secondary, border, borderSecondary } = color3;
-        document.documentElement.style.setProperty("--primary", primary);
-        document.documentElement.style.setProperty("--secondary", secondary);
-        document.documentElement.style.setProperty("--border", border);
-        document.documentElement.style.setProperty("--borderSecondary", borderSecondary);
     }
+    getData = async () => {
+        if (process.env.REACT_APP_SHOP_ID === undefined) return;
+        try {
+            const res = await api.shop.getDetails(process.env.REACT_APP_SHOP_ID);
+            document.documentElement.style.setProperty("--primary", res.color.bgc);
+            document.documentElement.style.setProperty("--secondary", res.color.tc);
+            document.documentElement.style.setProperty("--border", res.color.bc);
+            document.documentElement.style.setProperty("--borderSecondary", res.color.bsc);
+            this.setState({ shopName: res.name });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    componentDidMount() {
+        this.getData();
+        // const { primary, secondary, border, borderSecondary } = color3;
+        // document.documentElement.style.setProperty("--primary", primary);
+        // document.documentElement.style.setProperty("--secondary", secondary);
+        // document.documentElement.style.setProperty("--border", border);
+        // document.documentElement.style.setProperty("--borderSecondary", borderSecondary);
+    }
+
     render() {
         const { isLoggedIn, isAdmin } = this.props.userStatus;
         const { snackbarStatus, openSnackbar } = this.props;
 
         return (
             <div className='App'>
-                <Header />
+                <Header shopName={this.state.shopName} />
                 <div className='App__page'>
                     <Switch>
                         <Route exact path='/' render={() => (isLoggedIn ? <Home /> : <Redirect to={ROUTER_LINKS.signIn} />)} />

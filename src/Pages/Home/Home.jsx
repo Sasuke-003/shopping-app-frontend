@@ -12,15 +12,18 @@ class Home extends Component {
             onSaleProducts: [],
             popularProducts: [],
             recommendedProducts: [],
+            newArrival: [],
             isOnSaleStarted: false,
             isPopularStarted: false,
             isRecommendedStarted: false,
+            isNewArrivalsStarted: false,
         };
     }
     getData = async () => {
         let res1 = [];
         let res2 = [];
         let res3 = [];
+        let res4 = [];
         try {
             res1 = await api.shop.listOffer();
         } catch (e) {
@@ -36,6 +39,11 @@ class Home extends Component {
         } catch (e) {
             console.log(e);
         }
+        try {
+            res4 = await api.shop.newArrival();
+        } catch (e) {
+            console.log(e);
+        }
         let datas1 = [...res1];
         datas1.forEach((data1) => {
             data1["price"] = data1?.itemObj?.subDetail[0]?.price;
@@ -48,40 +56,62 @@ class Home extends Component {
         datas3.forEach((data3) => {
             data3["price"] = data3?.itemObj?.subDetail[0]?.price;
         });
+        let datas4 = [...res4];
+        datas4.forEach((data4) => {
+            data4["price"] = data4?.itemObj?.subDetail[0]?.price;
+        });
         this.setState({
-            onSaleProducts: datas1,
-            popularProducts: datas2,
-            recommendedProducts: datas3,
+            onSaleProducts: datas1.length > 0 ? datas1 : [],
+            popularProducts: datas2.length > 0 ? datas2 : [],
+            recommendedProducts: datas3.length > 0 ? datas3 : [],
+            newArrival: datas4.length > 0 ? datas4 : [],
             isOnSaleStarted: true,
             isPopularStarted: true,
             isRecommendedStarted: true,
+            isNewArrivalsStarted: true,
         });
     };
     componentDidMount() {
         this.getData();
     }
     render() {
-        const { onSaleProducts, popularProducts, recommendedProducts, isPopularStarted, isOnSaleStarted, isRecommendedStarted } = this.state;
+        const {
+            onSaleProducts,
+            popularProducts,
+            recommendedProducts,
+            newArrival,
+            isPopularStarted,
+            isOnSaleStarted,
+            isRecommendedStarted,
+            isNewArrivalsStarted,
+        } = this.state;
         return (
             <div className='home'>
                 <Category />
                 <Banner />
-                {onSaleProducts.length > 0 ? (
+                {console.log(this.state)}
+                {onSaleProducts !== [] && onSaleProducts?.length > 0 ? (
                     <div>
                         <h1 className='product-home-view-title'>PRODUCTS ON SALE</h1>
                         <ProductHomeView key='sale' classKey='sale' products={onSaleProducts} isStarted={isOnSaleStarted} />
                     </div>
                 ) : null}
-                {popularProducts.length > 0 ? (
+                {popularProducts !== [] && popularProducts?.length > 0 ? (
                     <div>
                         <h1 className='product-home-view-title'>MOST POPULAR PRODUCTS</h1>
                         <ProductHomeView key='popular' classKey='popular' products={popularProducts} isStarted={isPopularStarted} />
                     </div>
                 ) : null}
-                {recommendedProducts.length > 0 ? (
+                {recommendedProducts !== [] && recommendedProducts?.length > 0 ? (
                     <div>
                         <h1 className='product-home-view-title'>RECOMMENDED FOR YOU</h1>
                         <ProductHomeView key='recommended' classKey='recommended' products={recommendedProducts} isStarted={isRecommendedStarted} />
+                    </div>
+                ) : null}
+                {newArrival !== [] && newArrival?.length > 0 ? (
+                    <div>
+                        <h1 className='product-home-view-title'>RECOMMENDED FOR YOU</h1>
+                        <ProductHomeView key='newArrival' classKey='newArrival' products={newArrival} isStarted={isNewArrivalsStarted} />
                     </div>
                 ) : null}
             </div>
