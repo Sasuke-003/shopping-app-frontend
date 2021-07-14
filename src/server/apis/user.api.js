@@ -2,7 +2,7 @@ import axios from "axios";
 
 const url = {
     signUp: "/user/sign-up/",
-    signIn: "/user/sign-in",
+    signIn: "/user/sign-in/",
     basket: "/user/cart",
     checkout: "/user/checkout",
 };
@@ -13,8 +13,8 @@ export const user = {
     },
 
     signIn: async (signInData) => {
-        // const res = await axios.post(url.signIn + process.env.REACT_APP_SHOP_ID, signInData);
-        const res = await axios.post(url.signIn, signInData);
+        const res = await axios.post(url.signIn + process.env.REACT_APP_SHOP_ID, signInData);
+        // const res = await axios.post(url.signIn, signInData);
         axios.defaults.headers.common["Authorization"] = `Bearer ${res.accTok}`;
         localStorage.setItem("accTok", `Bearer ${res.accTok}`);
         return res;
