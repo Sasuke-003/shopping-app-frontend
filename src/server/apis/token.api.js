@@ -43,6 +43,7 @@ function clearAllData() {
     document.cookie.split(";").forEach(function (c) {
         document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
+    localStorage.setItem("accTok", "");
     setUserToken(null);
     setUserStatus("isLoggedIn", false);
     setUserStatus("isAdmin", false);
