@@ -44,24 +44,24 @@ class Home extends Component {
         } catch (e) {
             console.log(e);
         }
-        let datas1 = [...res1];
+        let datas1 = res1 === undefined ? [] : [...res1];
         datas1.forEach((data1) => {
             data1["price"] = data1?.itemObj?.subDetail[0]?.price;
         });
-        let datas2 = [...res2];
+        let datas2 = res2 === undefined ? [] : [...res2];
         datas2.forEach((data2) => {
             data2["price"] = data2?.itemObj?.subDetail[0]?.price;
         });
-        let datas3 = [...res3];
+        let datas3 = res2 === undefined ? [] : [...res3];
         datas3.forEach((data3) => {
             data3["price"] = data3?.itemObj?.subDetail[0]?.price;
         });
-        let datas4 = [...res4];
+        let datas4 = res2 === undefined ? [] : [...res4];
         datas4.forEach((data4) => {
             data4["price"] = data4?.itemObj?.subDetail[0]?.price;
         });
         this.setState({
-            onSaleProducts: datas1.length > 0 ? datas1 : [],
+            // onSaleProducts: datas1.length > 0 ? datas1 : [],
             popularProducts: datas2.length > 0 ? datas2 : [],
             recommendedProducts: datas3.length > 0 ? datas3 : [],
             newArrival: datas4.length > 0 ? datas4 : [],
