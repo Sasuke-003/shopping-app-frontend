@@ -144,11 +144,11 @@ class ItemDetails extends Component {
                         <h1 className='item-details__name'>{item.name}</h1>
                         <div className='item-details__ratings'>
                             <div>
-                                {[...Array(5 - parseInt(item.rate))].map((elementInArray, index) => (
-                                    <StarBorderIcon key={item.name + index + elementInArray + 1} style={{ marginLeft: "5px", fontSize: "55px" }} />
-                                ))}
                                 {[...Array(parseInt(item.rate))].map((elementInArray, index) => (
                                     <GradeSharpIcon key={item.name + index + elementInArray + 2} style={{ marginLeft: "5px", fontSize: "55px" }} />
+                                ))}
+                                {[...Array(5 - parseInt(item.rate))].map((elementInArray, index) => (
+                                    <StarBorderIcon key={item.name + index + elementInArray + 1} style={{ marginLeft: "5px", fontSize: "55px" }} />
                                 ))}
                             </div>
                             <h4>{item.rateCount} Ratings</h4>

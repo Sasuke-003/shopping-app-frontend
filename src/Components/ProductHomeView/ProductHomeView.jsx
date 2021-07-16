@@ -59,6 +59,7 @@ class ProductHomeView extends Component {
                                 {product.itemObj.name.length > 23 ? product.itemObj.name.slice(0, 23) + "..." : product.itemObj.name}
                             </span>
                             <img
+                                loading='lazy'
                                 className='product-home-view__image'
                                 id='product-home-view__image'
                                 src={SERVER_URL + "item/" + product.itemObj.img[0]}

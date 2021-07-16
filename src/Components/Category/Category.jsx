@@ -42,7 +42,7 @@ class Category extends Component {
                 {categories.map((category, index) => (
                     <div className='category__item-container'>
                         <div id={category + index} className='category__item'>
-                            <img className='category__image' src={SERVER_URL + "item/" + category.img} alt='cannot load' />
+                            <img loading='lazy' className='category__image' src={SERVER_URL + "item/" + category.img} alt='cannot load' />
                             <span className='category__name'>{category.name}</span>
                             <div className='category__image-hover'>
                                 <div className='category__image-hover-btn' onClick={() => history.push(ROUTER_LINKS.searchResult + category.name)}>

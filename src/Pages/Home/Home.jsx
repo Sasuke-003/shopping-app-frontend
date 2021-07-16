@@ -61,7 +61,7 @@ class Home extends Component {
             data4["price"] = data4?.itemObj?.subDetail[0]?.price;
         });
         this.setState({
-            // onSaleProducts: datas1.length > 0 ? datas1 : [],
+            onSaleProducts: datas1.length > 0 ? datas1 : [],
             popularProducts: datas2.length > 0 ? datas2 : [],
             recommendedProducts: datas3.length > 0 ? datas3 : [],
             newArrival: datas4.length > 0 ? datas4 : [],

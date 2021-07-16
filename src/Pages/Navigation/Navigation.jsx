@@ -25,9 +25,6 @@ function Navigation({ history, userStatus }) {
                 </div>
             </div>
             <div class='navigation__second-row'>
-                <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.profile)}>
-                    <h1 className='navigation__links'>PROFILE</h1>
-                </div>
                 {userStatus.isAdmin ? (
                     <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.addProduct)}>
                         <h1 className='navigation__links'>ADD PRODUCT</h1>
@@ -50,8 +47,6 @@ function Navigation({ history, userStatus }) {
                         </h1>
                     </div>
                 )}
-            </div>
-            <div class='navigation__third-row'>
                 {userStatus.isAdmin ? (
                     <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.addBanner)}>
                         <h1 className='navigation__links'>ADD BANNER</h1>
@@ -63,6 +58,8 @@ function Navigation({ history, userStatus }) {
                         </h1>
                     </div>
                 )}{" "}
+            </div>
+            <div class='navigation__third-row'>
                 {userStatus.isAdmin ? (
                     <div class='navigation__links-container' onClick={() => history.push(ROUTER_LINKS.addOnSale)}>
                         <h1 className='navigation__links'>ADD ON SALE</h1>
@@ -74,6 +71,11 @@ function Navigation({ history, userStatus }) {
                         </h1>
                     </div>
                 )}{" "}
+                <div class='navigation__links-container'>
+                    <h1 className='navigation__links'>
+                        <LockSharpIcon style={{ fontSize: 70 }} />
+                    </h1>
+                </div>
                 <div class='navigation__links-container'>
                     <h1 className='navigation__links'>
                         <LockSharpIcon style={{ fontSize: 70 }} />

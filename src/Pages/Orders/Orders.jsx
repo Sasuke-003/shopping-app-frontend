@@ -85,6 +85,7 @@ class Orders extends Component {
     }
     render() {
         const { totalItems, totalPrice, open, items, isStarted } = this.state;
+        const { isLoggedIn, isAdmin } = this.props.userStatus;
         // const { snackbarStatus } = this.props;
         return !isStarted ? (
             <div className='search-result__isSearching'>
@@ -107,7 +108,7 @@ class Orders extends Component {
                                 <div className='orders__item-name-container'>
                                     <h1 className='orders__item-name'>{item.name}</h1>
 
-                                    {item.status > 3 && (
+                                    {!isAdmin && item.status > 3 && (
                                         <div className='orders__item-rate-container'>
                                             <Ratings orderID={item.orderID} rating={item.userRating} getRating={this.submitRating} />
                                             <h6 className='orders__item-rate-text'>{item.userRating < 1 ? "RATE THIS PRODUCT" : "YOU RATED"}</h6>
@@ -155,6 +156,11 @@ class Orders extends Component {
 // const mapSateToProps = (state) => ({
 //     snackbarStatus: state.snackbar,
 // });
+const mapSateToProps = (state) => ({
+    userStatus: state.userStatus.currentUserStatus,
+    userToken: state.userToken,
+    snackbarStatus: state.snackbar,
+});
 
-// export default connect(mapSateToProps)(Orders);
-export default Orders;
+export default connect(mapSateToProps)(Orders);
+// export default Orders;
