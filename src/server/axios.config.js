@@ -5,7 +5,7 @@ import { token } from "./apis/token.api";
 import { setUserStatus, setUserToken } from "../util";
 const log = new Logger();
 
-axios.defaults.baseURL = "http://192.168.147.81:8080";
+axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common["Authorization"] = localStorage.getItem("accTok") || "";
 

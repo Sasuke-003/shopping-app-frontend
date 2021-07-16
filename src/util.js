@@ -80,4 +80,4 @@ export const setUserToken = (token) => store.dispatch(setCurrentUserToken(token)
 
 export const getToken = () => store.getState().userToken;
 
-export const SERVER_URL = "http://192.168.147.81:8080/public/";
+export const SERVER_URL = "http://localhost:8080/public/";
