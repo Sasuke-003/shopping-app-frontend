@@ -41,7 +41,7 @@
     z-index: 9999;
     left: 0;
     top: 0;
-    opacity: 50%;
+    opacity: 50% !important;
     display: none;
 }
 

@@ -32,7 +32,7 @@
 .category__image-hover {
     position: absolute;
     background: var(--secondary);
-    opacity: 50%;
+    opacity: 50% !important;
     height: 13vw;
     width: 13vw;
     border-radius: 50%;
