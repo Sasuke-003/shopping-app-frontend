@@ -51,7 +51,6 @@ class ProductHomeView extends Component {
             </div>
         ) : (
             <div className={`product-home-view drag-scroll-${this.props.classKey}`}>
-                {console.log(products)}
                 {products.length > 0 &&
                     products.map((product, index) => (
                         <div key={product.itemObj.name + index} id={product + index} className='product-home-view__container'>
@@ -75,8 +74,7 @@ class ProductHomeView extends Component {
                                     {product.offer === 0 ? null : <span className='product-home-view__price-strike'>${product.price}</span>}$
                                     {(product.price * (100 - product.offer)) / 100}
                                 </span>
-                                {console.log("........................................................................")}
-                                {console.log(product)}
+
                                 <div className='product-home-view__ratings'>
                                     {[...Array(parseInt(product.rate))].map((elementInArray, index) => (
                                         <GradeSharpIcon key={product + index + elementInArray} style={{ marginLeft: "5px", fontSize: "23px" }} />

@@ -89,7 +89,7 @@ class Home extends Component {
             <div className='home'>
                 <Category />
                 <Banner />
-                {console.log(this.state)}
+
                 {onSaleProducts !== [] && onSaleProducts?.length > 0 ? (
                     <div>
                         <h1 className='product-home-view-title'>PRODUCTS ON SALE</h1>

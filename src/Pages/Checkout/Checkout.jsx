@@ -15,7 +15,6 @@ function Checkout({ history }) {
 
     const handleToken = async (token) => {
         try {
-            console.log(token);
             await api.order.create({ stripeToken: token });
             getPopup("success", "Payment Successful");
             await api.user.addToBasket([]);

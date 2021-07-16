@@ -42,9 +42,9 @@ function AddOnSale() {
 
     const handleDeleteProductOnSale = async (id) => {
         let data = [...productData];
-        console.log(id);
+
         data = data.filter((prdct) => prdct.itemID !== id);
-        console.log(data);
+
         try {
             await api.shop.applyOffer(data);
             getPopup("success", "Successfully removed product from sale");

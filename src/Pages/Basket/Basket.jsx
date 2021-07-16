@@ -53,13 +53,13 @@ class Basket extends Component {
             let sendingData = [];
             let totalPrice = Number.parseInt(this.state.totalPrice);
             let totalItems = Number.parseInt(this.state.totalItems);
-            console.log(totalPrice === this.state.totalPrice);
+
             items.forEach((item) => {
                 if (itemID === item.itemID && item.subID === subID) {
                     totalPrice -= item.price * item.qty;
                     totalPrice += item.price * e.target.value;
                     totalItems -= item.qty - e.target.value;
-                    console.log(totalPrice);
+
                     item["qty"] = e.target.value;
                 }
                 sendingData.push({
@@ -94,9 +94,8 @@ class Basket extends Component {
                 }
                 totalPrice -= item.price * item.qty;
                 totalItems -= item.qty;
-                console.log(totalPrice);
             });
-            console.log(sendingData);
+
             await api.user.addToBasket(sendingData);
             getPopup("success", "Deleted successfully");
             this.setState({ items: items, totalPrice: totalPrice, totalItems: totalItems });

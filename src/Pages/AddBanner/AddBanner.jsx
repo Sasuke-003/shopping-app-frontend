@@ -15,7 +15,6 @@ function AddBanner() {
         try {
             const res = await api.shop.getBanner();
             setBanner(res);
-            console.log(res);
         } catch (e) {}
     };
 
