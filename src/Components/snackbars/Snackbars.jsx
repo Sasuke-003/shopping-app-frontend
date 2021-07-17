@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Snackbars({ status, message, open, handleClose, autoHideDuration = 2000 }) {
+export default function Snackbars({ status, message, open, handleClose, autoHideDuration = 3000 }) {
     const classes = useStyles();
 
     let Alert;
