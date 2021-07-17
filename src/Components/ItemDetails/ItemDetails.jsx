@@ -93,10 +93,11 @@ class ItemDetails extends Component {
     handleAddToBasket = async () => {
         const { selected } = this.state;
         const { match } = this.props;
-        if (selected.price === "NAN") {
+        if (selected.price === "NAN" || selected.stock === 0) {
             getPopup("error", "Sorry!  This product is currently out of stock");
             return;
         }
+
         try {
             const res = await api.user.getBasket();
             let flag = false;
